@@ -262,13 +262,3 @@ defaults:
       noindex: false
       header:
         image: default-header.png
-
-        defaults:
-  # _pages
-  - scope:
-      path: ""
-      type: pages
-    values:
-      layout: single
-      header:
-        image: wave.jpg
