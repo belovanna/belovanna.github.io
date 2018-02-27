@@ -16,8 +16,9 @@ main:
   #- title: "Gallery"
   #  url: /gallery/
 
-  - title: "Archive"
-    url: /archive/
-
   - title: "External Links"
     url: /links/
+
+
+- title: "Archive"
+  url: /archive/
