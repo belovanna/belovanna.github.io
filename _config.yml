@@ -260,5 +260,4 @@ defaults:
       share: true
       related: true
       noindex: false
-      header:
-        image: default-header.png
+    
