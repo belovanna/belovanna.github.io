@@ -8,14 +8,14 @@ header:
   image: assets/images/wave.jpg
 ---
 
-Hi! I'm an Economics PhD, and a big fan of Data Analysis, Mathematical Modelling and Statistics. I like working in R (especially the Tidyverse).
+Hi! I'm a big fan of Mathematical Modelling, Data Analysis, and Statistics. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is jekyll, which is responsible for this website being on and running.
 
 
 ### Education:
-- **University of Trento** (Nov 2010 - April 2016)   
-  PhD of Economics
-- **Lund University** (Sept 2008 - June 2010)   
-  MSc of Economics
+- **University of Trento** (2011 - 2016)   
+  PhD Economics
+- **Lund University** (2008 - 2010)   
+  MSc Economics
 
 
 ### Research Interests:
