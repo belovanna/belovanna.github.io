@@ -17,3 +17,5 @@ main:
   #  url: /gallery/
   - title: "External Links"
     url: /links/
+  - title: "Archive"
+    url: /
