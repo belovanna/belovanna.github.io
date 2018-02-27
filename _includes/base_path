@@ -1,6 +1,5 @@
-{% capture base_path %}{{ site.url }}{{ site.baseurl }}{% endcapture %}
-{% if page.lang %}
-	{% assign post_specific_locale = page.lang %}
-	{% else %}
-	{% assign post_specific_locale = site.locale %}
+{% if site.url %}
+  {% assign base_path = site.url | append: site.baseurl %}
+{% else %}
+  {% assign base_path = site.github.url %}
 {% endif %}
