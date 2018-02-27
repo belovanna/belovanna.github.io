@@ -4,7 +4,7 @@ title: "External Links"
 permalink: /links/
 author_profile: true
 header:
-  image: assets/images/wave.jpg
+  image: assets/images/banner.jpg
 ---
 
 <br><br>
