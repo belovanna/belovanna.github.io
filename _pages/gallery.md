@@ -4,6 +4,9 @@ layout: single
 permalink: /gallery/
 author_profile: true
 comments: true
+header:
+  image: assets/images/titanic-header.png
+
 gallery:
   - url: /pics/gallery/HS_tower.jpg
     image_path: /pics/gallery/HS_tower.jpg

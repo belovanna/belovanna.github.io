@@ -3,6 +3,8 @@ layout: single
 title: "External Links"
 permalink: /links/
 author_profile: true
+header:
+  image: assets/images/titanic-header.png
 ---
 
 <br><br>
