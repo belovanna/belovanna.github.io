@@ -6,6 +6,4 @@ author_profile: true
 ---
 
 <br><br>
-[Yale Center for Statistical Genomics and Proteomics](http://zhaocenter.org/)
-
-[Forrest Crawford Lab](http://www.crawfordlab.io/)
+[University of Trento](http://www.unitn.it/en/ateneo/1907/doctoral-school-of-social-sciences)

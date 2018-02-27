@@ -6,9 +6,8 @@ author_profile: true
 comments: true
 ---
 
-Most of my blogs are technical blogs written mainly for my own reference. I'd be happy if any of you find them useful too.
-
-
+Most of my posts are technical notes written for my own reference. It'll be great,
+if anyone would find them useful.
 
 <ul>
   {% for post in site.posts %}
@@ -25,8 +24,3 @@ Most of my blogs are technical blogs written mainly for my own reference. I'd be
    {% include archive-single.html %}
   {% endfor %}
 </ul>
-
-## Notebooks:
-- [**Python: assignment, function argument passing, views, and copies**](https://github.com/zengliX/Notebooks/blob/master/python_variable.ipynb)
-
-
