@@ -4,6 +4,8 @@ title: "About"
 permalink: /About/
 comments: true
 author_profile: true
+header:
+  image: assets/images/titanic-header.png
 ---
 
 Hi! I'm an Economics PhD, and a big fan of Data Analysis, Mathematical Modelling and Statistics. I like working in R (especially the Tidyverse).
