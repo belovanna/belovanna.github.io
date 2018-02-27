@@ -5,7 +5,7 @@ permalink: /Blogs/
 author_profile: true
 comments: true
 header:
-  image: assets/images/titanic-header.png
+  image: assets/images/wave.jpg
 ---
 
 Most of my posts are technical notes written for my own reference. It'll be great,

@@ -5,7 +5,7 @@ permalink: /gallery/
 author_profile: true
 comments: true
 header:
-  image: assets/images/titanic-header.png
+  image: assets/images/wave.jpg
 
 gallery:
   - url: /pics/gallery/HS_tower.jpg
