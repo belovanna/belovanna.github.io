@@ -8,7 +8,7 @@ header:
   image: assets/images/wave.jpg
 ---
 
-Hi! I'm a big fan of Mathematical Modelling, Data Analysis, and Statistics. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is jekyll, which is responsible for this website being on and running.
+Hi! I'm a big fan of Mathematical Modelling, Data Analysis, and Statistics. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running.
 
 
 ### Education:
