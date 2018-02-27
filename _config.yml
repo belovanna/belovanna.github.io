@@ -94,7 +94,7 @@ author:
   avatar           : /assets/images/bio-photo.jpg # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Economics Ph.D, Data Enthusiast"
   location         : "Belarus / Italy"
-  email            : belovanna@gmail.com
+  email            : anabelova@gmail.com
   uri              : https://www.kaggle.com/anello
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
