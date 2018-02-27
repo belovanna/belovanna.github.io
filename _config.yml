@@ -13,10 +13,10 @@ title                    : "Anna Belova"
 title_separator          : "-"
 name                     : "Anna Belova"
 description              : "Personal website"
-url                      : https://belovanna.com # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : https://belovanna.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : belovanna/belovanna.github.io # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-teaser                   : /assets/images/500x300.png # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+teaser                   : /assets/images/default-header.png # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -103,7 +103,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           :
+  github           :belovanna
   gitlab           :
   google_plus      :
   keybase          :
@@ -256,6 +256,9 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments:  true
       share: true
       related: true
+      noindex: false
+      header:
+        image: default-header.png
