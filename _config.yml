@@ -9,7 +9,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Anna Belova"
+title                    : "Home"
 title_separator          : "-"
 name                     : "Anna Belova"
 description              : "Personal website"
