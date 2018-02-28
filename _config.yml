@@ -200,6 +200,9 @@ plugins:
   - jekyll-feed
   - jemoji
 
+gems:
+  - jekyll-maps
+
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
@@ -260,3 +263,9 @@ defaults:
       share: true
       related: true
       noindex: false
+
+    maps:
+    google:
+      api_key: <AIzaSyCk6jQ3SJHtT6WAEIwNJFs_axNCYRuOjaY>
+
+github: [metadata]

@@ -1,7 +1,7 @@
 ---
 layout: single
 title:  "Linking to a Pdf in Jekyll"
-excerpt: "Linking to a Pdf in Jekyll: downloadable and embedded."
+excerpt: "Linking to a Pdf in Jekyll: downloadable and embedded files."
 date:   2018-02-27 15:42:32 +0300
 tags:
   - website

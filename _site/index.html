@@ -9,15 +9,15 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Home</title>
+<!-- begin _includes/seo.html --><title>Blog</title>
 <meta name="description" content="Personal website">
 
 
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:site_name" content="Home">
-<meta property="og:title" content="Home">
+<meta property="og:site_name" content="Blog">
+<meta property="og:title" content="Blog">
 <meta property="og:url" content="http://localhost:4000/">
 
 
@@ -67,7 +67,7 @@
 <!-- end _includes/seo.html -->
 
 
-<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Home Feed">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Blog Feed">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
@@ -102,6 +102,42 @@
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
 <!-- end custom head snippets -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+<style type="text/css">
+.content {
+	min-width: 400px;
+}
+#calendar {
+	width: 839px;
+}
+.subdomain-text {
+	fill: #fff;
+}
+#calendar a {
+	color: #999;
+}
+@media all and (max-width:1400px) {
+	#calendar {
+		width: 626px;
+	}
+}
+@media all and (max-width:730px) {
+	#calendar {
+		width:365px;
+	}
+}
+@media all and (max-width:420px) {
+	#calendar {
+		width:191px;
+	}
+}
+</style>
 
   </head>
 
@@ -115,7 +151,7 @@
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
-        <a class="site-title" href="http://localhost:4000/">Home</a>
+        <a class="site-title" href="http://localhost:4000/">Blog</a>
         <ul class="visible-links">
           
             
@@ -369,7 +405,7 @@
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll: downloadable and embedded.
+    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll: downloadable and embedded files.
 </p>
   </article>
 </div>
@@ -420,6 +456,83 @@
         <!-- start custom footer snippets -->
 
 <!-- end custom footer snippets -->
+<script type="text/javascript">
+
+var data = {
+"1519735352": 3
+};
+
+
+var responsiveCal = function( options ) {
+	var now = new Date();
+    if( $(window).width() < 420 ) {
+        options.start = now.setMonth(now.getMonth());
+        options.range = 1;
+        options.cellSize = 25;
+    } else if ( $(window).width() < 730 ) {
+        options.start = now.setMonth(now.getMonth() - 1);
+        options.range = 2;
+        options.cellSize = 20;
+    } else if( $(window).width() < 1400 ) {
+        options.start = now.setMonth(now.getMonth() - 2);
+        options.range = 3;
+        options.cellSize = 23;
+    } else {
+        options.start = now.setMonth(now.getMonth() - 3);
+        options.range = 4;
+        options.cellSize = 23;
+    }
+
+    if( typeof cal === "object" ) {
+        $('#cal-heatmap').html('');
+        cal = cal.destroy();
+    }
+    cal = new CalHeatMap();
+    cal.init( options );
+
+}
+caloptions = {
+    itemSelector: "#cal-heatmap",
+	domain: "month",
+	subDomain: "x_day",
+	data: data,
+	dataType: "json",
+	cellPadding: 5,
+	domainGutter: 20,
+	displayLegend: false,
+	range: 4,
+	considerMissingDataAsZero:false,
+	domainDynamicDimension: true,
+	previousSelector: "#cal-heatmap-PreviousDomain-selector",
+	nextSelector: "#cal-heatmap-NextDomain-selector",
+	domainLabelFormat: function(date) {
+		moment.locale("en");
+		return moment(date).format("MMMM").toUpperCase();
+	},
+	subDomainTextFormat: "%d",
+	legend: [0,1,2,3],
+	label: {
+		position: "top"
+	}
+};
+
+
+// run first time, put in load if your scripts are in footer
+responsiveCal( caloptions );
+
+$(window).resize(function() {
+    if(this.resizeTO) clearTimeout(this.resizeTO);
+    this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+    }, 500);
+});
+
+//resize on resizeEnd function
+$(window).bind('resizeEnd', function() {
+	 responsiveCal( cal.options );
+});
+</script>
+
         <div class="page__footer-follow">
   <ul class="social-icons">
     
