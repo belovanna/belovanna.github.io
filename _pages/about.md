@@ -8,17 +8,20 @@ header:
   image: assets/images/banner.jpg
 ---
 
-Hi! I'm a big fan of Mathematical Modeling, Statistics, and  Data Analysis.
-I like working in R (especially Tidyverse) and learning new techy things.
-My most recent discovery is Jekyll, which is responsible for this website being
-on and running.
-
+Hi! My background (and PhD) is in Economics and in particular Macroeconomic Modeling.
+But working as an Analyst for a business intelligence startup company, I became very excited about micro firm-level data. I have quite a bit of experience in data analysis and forecasting, revenue management, e-commerce systems, and developing analytics for BI software for Italian ski resorts. I like working in R (big fan of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running.
 
 ### Education:
 - **University of Trento** (2011 - 2016)   
-  PhD Economics
+  PhD in Economics
 - **Lund University** (2008 - 2010)   
-  MSc Economics
+  MSc in Economics
+
+<br>
+<br>
+<br>
+<br>
+### Research:
 
 <br>
 <br>
