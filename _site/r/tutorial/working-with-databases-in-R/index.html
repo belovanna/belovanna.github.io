@@ -380,8 +380,14 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-cog"></i> On this page</h4></header>
               <ul class="toc__menu">
+  <li><a href="#single-table-verbs">Single table verbs</a></li>
   <li><a href="#grouped-operations">Grouped operations</a></li>
-  <li><a href="#types-of-joins">Types of joins</a></li>
+  <li><a href="#chaining">Chaining</a></li>
+  <li><a href="#mutating-joins">Mutating joins</a>
+    <ul>
+      <li><a href="#types-of-mutating-joins">Types of mutating joins</a></li>
+    </ul>
+  </li>
   <li><a href="#filtering-joins">Filtering joins</a></li>
   <li><a href="#set-operations">Set operations</a></li>
   <li><a href="#r-to-sql-translation">R to SQL translation</a></li>
@@ -394,10 +400,18 @@
     <header><h4 class="nav__title"><i class="fas fa-cog"></i> On this page</h4></header>
 <ul class="toc__menu" id="markdown-toc">
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
-  <li><a href="#establishing-the-connection" id="markdown-toc-establishing-the-connection">Establishing the connection</a></li>
+  <li><a href="#establishing-a-connection" id="markdown-toc-establishing-a-connection">Establishing a connection</a></li>
   <li><a href="#intorduction-to-dplyr-package" id="markdown-toc-intorduction-to-dplyr-package">Intorduction to dplyr package</a>    <ul>
+      <li><a href="#single-table-verbs" id="markdown-toc-single-table-verbs">Single table verbs</a></li>
       <li><a href="#grouped-operations" id="markdown-toc-grouped-operations">Grouped operations</a></li>
-      <li><a href="#types-of-joins" id="markdown-toc-types-of-joins">Types of joins</a></li>
+      <li><a href="#chaining" id="markdown-toc-chaining">Chaining</a></li>
+    </ul>
+  </li>
+  <li><a href="#two-table-verbs" id="markdown-toc-two-table-verbs">Two-table verbs</a>    <ul>
+      <li><a href="#mutating-joins" id="markdown-toc-mutating-joins">Mutating joins</a>        <ul>
+          <li><a href="#types-of-mutating-joins" id="markdown-toc-types-of-mutating-joins">Types of mutating joins</a></li>
+        </ul>
+      </li>
       <li><a href="#filtering-joins" id="markdown-toc-filtering-joins">Filtering joins</a></li>
       <li><a href="#set-operations" id="markdown-toc-set-operations">Set operations</a></li>
       <li><a href="#r-to-sql-translation" id="markdown-toc-r-to-sql-translation">R to SQL translation</a></li>
@@ -420,196 +434,215 @@ Moreover, dplyr allows to interact with databases without using SQL, taking the 
 
 <center><img src="https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png" /></center>
 
-<p>To use databases with <em>dplyr</em>, we also need to install <em>dbplyr</em>…\</p>
-
-<p>(It’s is a relatively recent backend package which now contains all the dplyr code related to connecting to databases. More on <em>dbplyr</em> <a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">here</a> and <a href="https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/" title="Rstudion blog">here</a>)</p>
+<p>To use databases with <em>dplyr</em>, we also need to install <em>dbplyr</em>. It’s is a
+relatively recent backend package which now contains all the dplyr code related
+to connecting to databases. More on <em>dbplyr</em> <a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">here</a> and <a href="https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/" title="Rstudion blog">here</a>)</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"dbplyr"</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"RMySQL"</span><span class="p">)</span><span class="w"> </span><span class="c1">#for working with MySQL database</span><span class="w">
 </span></code></pre></div></div>
 
-<p>…and a backend packages. The <strong>DBI</strong> backend package comes with dplyr automatically. <strong>DBI</strong> provides a common interface that allows dplyr to work with many
-different databases using the same code. But we you need to install a specific backend for the database that we want to connect to.</p>
+<p>We’ll also need <em>DBI</em> package. It comes with dplyr automatically and provides a common interface that allows dplyr to work with many different databases using the same code.
+Finally,  we have to install a specific backend for the database that we want to connect to.</p>
 
 <p>Most commonly used backends are:</p>
 
 <ul>
   <li>
-    <p><strong>RMySQL</strong> connects to MySQL and MariaDB</p>
+    <p><em>RMySQL</em> connects to MySQL and MariaDB</p>
   </li>
   <li>
-    <p><strong>RPostgreSQL</strong> connects to Postgres and Redshift.</p>
+    <p><em>RPostgreSQL</em> connects to Postgres and Redshift.</p>
   </li>
   <li>
-    <p><strong>RSQLite</strong> embeds a SQLite database.</p>
+    <p><em>RSQLite</em> embeds a SQLite database.</p>
   </li>
   <li>
-    <p><strong>odbc</strong> connects to many commercial databases via the open database connectivity protocol.</p>
+    <p><em>odbc</em> connects to many commercial databases via the open database connectivity protocol.</p>
   </li>
   <li>
-    <p><strong>bigrquery</strong> connects to Google’s BigQuery.</p>
+    <p><em>bigrquery</em> connects to Google’s BigQuery.</p>
   </li>
 </ul>
 
-<h1 id="establishing-the-connection">Establishing the connection</h1>
+<h1 id="establishing-a-connection">Establishing a connection</h1>
 
-<p>As the first thing to do, we load dplyr and one of the backend packages we’ve chosen:
-```{r eval = FALSE, echo = TRUE, message = FALSE}
-library(dplyr)
-library(RMySQL)</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Next, we should establish the connection with **DBI::dbConnect()**. The arguments to DBI::dbConnect() vary from database to database,
-but the first argument is always the database backend.
+<p>First, we load dplyr and one of the backend packages we’ve chosen:</p>
 
-```{r eval = FALSE}
-con &lt;- DBI::dbConnect(RMySQL::MySQL(), path = ":memory:")
-</code></pre></div></div>
-<p>It’s RSQLite::SQLite() for RSQLite, RMySQL::MySQL() for RMySQL, RPostgreSQL::PostgreSQL() for RPostgreSQL, odbc::odbc() for odbc,
-and bigrquery::bigquery() for BigQuery. SQLite only needs one other argument: the path to the database.
-Here we use the special string, “:memory:”, which causes SQLite to make a temporary in-memory database.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">RMySQL</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>Next, we should establish the connection with <strong>DBI::dbConnect()</strong>. The arguments
+to DBI::dbConnect() vary from database to database, but the first argument is
+always the database backend.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">con</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">DBI</span><span class="o">::</span><span class="n">dbConnect</span><span class="p">(</span><span class="n">RMySQL</span><span class="o">::</span><span class="n">MySQL</span><span class="p">(),</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">":memory:"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>It’s <code class="highlighter-rouge">RSQLite::SQLite()</code> for RSQLite, <code class="highlighter-rouge">RMySQL::MySQL()</code> for RMySQL, <code class="highlighter-rouge">RPostgreSQL::PostgreSQL()</code> for RPostgreSQL, <code class="highlighter-rouge">odbc::odbc()</code> for odbc, and <code class="highlighter-rouge">bigrquery::bigquery()</code> for BigQuery. SQLite only needs one other argument: the path to the database.
+Here we use the special string, <code class="highlighter-rouge">":memory:"</code>, which causes SQLite to make a temporary
+in-memory database.</p>
 
 <p>Most existing databases live on another server. In real life the connection code will look more like this:</p>
 
-<p>```{r eval = FALSE}
-con &lt;- DBI::dbConnect(RMySQL::MySQL(),
-  host = “database.rstudio.com”,
-  user = “hadley”,
-  password = rstudioapi::askForPassword(“Database password”)
-)</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-We can still continue to the old style src_mysql(), src_postgres(), and src_sqlite() functions, which still live in dplyr:
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">con</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">DBI</span><span class="o">::</span><span class="n">dbConnect</span><span class="p">(</span><span class="n">RMySQL</span><span class="o">::</span><span class="n">MySQL</span><span class="p">(),</span><span class="w">
+  </span><span class="n">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"database.rstudio.com"</span><span class="p">,</span><span class="w">
+  </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"hadley"</span><span class="p">,</span><span class="w">
+  </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rstudioapi</span><span class="o">::</span><span class="n">askForPassword</span><span class="p">(</span><span class="s2">"Database password"</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>Old style functions are src_mysql(), src_postgres(), and src_sqlite() functions,
+and they still live in dplyr:</p>
 
-```{r eval = FALSE}
-ConDplyr = src_mysql(dbname = "abc_api_efg_db", user = "annaBel", password ="mypass", host="sql.abc.com")
-</code></pre></div></div>
-<p><a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">More on dbplyr</a></p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ConDplyr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src_mysql</span><span class="p">(</span><span class="n">dbname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"abc_api_efg_db"</span><span class="p">,</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"annaBel"</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="s2">"mypass"</span><span class="p">,</span><span class="w"> </span><span class="n">host</span><span class="o">=</span><span class="s2">"sql.abc.com"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>More on dbplyr <a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">here</a>.</p>
 
 <h1 id="intorduction-to-dplyr-package">Intorduction to dplyr package</h1>
 
-<p>Let’s try to see the functioning of dplyr package using nycflights13 dataset. Load the package, and see what’s in the table “flights”.
-```{r eval = FALSE, echo = TRUE, message = FALSE}
-library(nycflights13)
-data(package=”nycflights13”) #returns tables that are available in a dataset
-dim(flights) #size of a specific table
-head(flights, n=2) #head of a specific tables
-str(flights) #structure of a specific table</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Single table verbs
-Single table verbs are the commands for performing data manipulations within a single table of a dataset. Let's check the main fuctions.
+<p>Let’s see dplyr at work using <code class="highlighter-rouge">nycflights13</code> dataset. Load the package, and see
+what’s in the table “flights”.</p>
 
-&gt;  Filtering certain rows of a dataframe can be done with the help of **filter** and **slice** functions. The first one helps to filter rows with certain
-characteristics (first month, first day, departure delay is 2). Whereas **slice** function picks rows by their position in a dataframe (pick rows from 1 to 5 in the example).
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">nycflights13</span><span class="p">)</span><span class="w">
+</span><span class="nf">dim</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span><span class="w"> </span><span class="c1">#size of a specific table</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1">#head of a specific tables</span><span class="w">
+</span><span class="n">str</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span><span class="w"> </span><span class="c1">#structure of a specific table</span><span class="w">
+</span></code></pre></div></div>
+<h2 id="single-table-verbs">Single table verbs</h2>
 
-```{r eval = FALSE}
-filter(flights, month==1, day==1, dep_delay==2)  #select a subset of rows
-</code></pre></div></div>
-
-<p>```{r eval = FALSE}
-slice(flights, 1:5)  #select rows by position</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&gt; Command **arrange** helps to sort information in a dataframe by fields. The first argument is always a dataframe name,
-then all the fields we want a DF to be arranged by. The second example arranges by arrival delay (in descending order).
-
-```{r eval = FALSE}
-arrange(dataframe name, field 1, field 2, ...)  #orders a dataframe by fields
-arrange(flights, year, month, day)
-arrange(flights, desc(arr_delay))
-</code></pre></div></div>
-
+<p>Single table verbs are the commands for data manipulations within a single table of a dataset. Let’s check some important functions.</p>
 <blockquote>
-  <p>In terms of working with columns, Dplyr allows up to pick columns, rename them, or modify the dataframe by creating/adding new columns.</p>
+  <p>Filtering certain rows of a dataframe can be done with the help of <strong>filter()</strong> and <strong>slice()</strong> functions.  <strong>filter()</strong> helps to filter rows with certain characteristics (first month, first day, departure delay is 2). Whereas <strong>slice()</strong> function picks rows by their position in a dataframe (pick rows from 1 to 5 in the example).</p>
 </blockquote>
 
-<p><strong>select</strong> function allows rapidly subset the columns we’re interested in. This function can be used in a combination
-with a number of helper functions: <strong>starts_with()</strong>, <strong>ends_with()</strong>, <strong>matches()</strong>, <strong>contains()</strong>.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">filter</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="o">==</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="o">==</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">dep_delay</span><span class="o">==</span><span class="m">2</span><span class="p">)</span><span class="w">  </span><span class="c1">#select a subset of rows</span><span class="w">
+</span><span class="n">slice</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span><span class="w">  </span><span class="c1">#select rows by position</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p><strong>arrange()</strong> function helps to sort information in a dataframe by fields. The first argument is always a dataframe name, then all the fields we want a DF to be arranged by. The second example arranges by arrival delay (in descending order).</p>
+</blockquote>
 
-<p>```{r eval = FALSE}
-select(dataframe name, col name 1, col name 2, …)  #orders a dataframe by fields
-select(flights, year: day) #select columns between year and day
-select(flights, -(year:day)) #select except columns between year and day</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>One can also use **select()** to rename columns `select(flights, tail_num= tailnumber)`. But better use **rename()** function:
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">arrange</span><span class="p">(</span><span class="n">dataframe</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">  </span><span class="c1">#orders a dataframe by fields</span><span class="w">
+</span><span class="n">arrange</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="p">)</span><span class="w">
+</span><span class="n">arrange</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">desc</span><span class="p">(</span><span class="n">arr_delay</span><span class="p">))</span><span class="w"> </span><span class="c1">#arrange by arriving delay in descending order</span><span class="w">
+</span></code></pre></div></div>
 
-```{r eval = FALSE}
-rename(flights, tail_num=tailnumber) #renames columns without dropping
-</code></pre></div></div>
-<p>We can also modify our dataframe by adding new columns that are functions of the existing columns with the help of <strong>mutate()</strong> and
-<strong>transmutate()</strong> functions. The latter one is used if we only want to keep new variables.</p>
-
-<p>```{r eval = FALSE}
-mutate(flights, gain=arr_delay-dep_delay, speed=distance/air_time*60) #renames columns without dropping</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&gt; Other two handy functions to work with a single table are **dictinct()** and **summarize()**:
-
-```{r eval = FALSE}
-distinct(flights, tailnum) #finds unique values in a table
-distinct(flights, origin, dest)
-</code></pre></div></div>
-
-<p><strong>Summarize()</strong> is used with affregate functions (i.e. min, max, mean,…). Dplyr also provides some special functions:
-``` {r eval = FALSE}
-n(x) #the number of observations in each group
-n_distinct(x) #the number of unique values in x
-first(x), last(x) and nth(x,n)</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-```{r eval = FALSE}
-summarize(flights, delay = mean(dep_delay, na.rm = TRUE)) #collapses the data into a single variable
-</code></pre></div></div>
+<p>In terms of working with columns, <em>Dplyr</em> allows to pick columns, rename them,
+or modify the dataframe by creating/adding new columns.</p>
 
 <blockquote>
-  <p><em>OBSERVATIONS</em>:</p>
-  <ol>
-    <li>Syntaxis of all the verbs is always the same:
-      <ul>
-        <li>the first argument is always a dataframe name</li>
-        <li>next you describe what you do with a dataframe</li>
-        <li>the result is a new dataframe</li>
-      </ul>
-    </li>
-  </ol>
+  <p><strong>select</strong>  allows rapidly subset the columns we’re interested in. This function can be used in a combination with a number of helper functions: <strong>starts_with()</strong>, <strong>ends_with()</strong>, <strong>matches()</strong>, <strong>contains()</strong>.</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">select</span><span class="p">(</span><span class="n">dataframe</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">  </span><span class="c1">#orders a dataframe by fields</span><span class="w">
+</span><span class="n">select</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="o">:</span><span class="w"> </span><span class="n">day</span><span class="p">)</span><span class="w"> </span><span class="c1">#select columns between year and day</span><span class="w">
+</span><span class="n">select</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">year</span><span class="o">:</span><span class="n">day</span><span class="p">))</span><span class="w"> </span><span class="c1">#select except columns between year and day</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p>One can also use <strong>select()</strong> to rename columns <code class="highlighter-rouge">select(flights, tail_num= tailnumber)</code>.
+But it’s more common to use <strong>rename()</strong> function:</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rename</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">tail_num</span><span class="o">=</span><span class="n">tailnumber</span><span class="p">)</span><span class="w"> </span><span class="c1">#renames columns without dropping</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p>We can also modify our dataframe by adding new columns that are functions of the existing columns with the help of <strong>mutate()</strong> and <strong>transmutate()</strong> functions. The latter one is used if we only want to keep new variables.</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mutate</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">gain</span><span class="o">=</span><span class="n">arr_delay</span><span class="o">-</span><span class="n">dep_delay</span><span class="p">,</span><span class="w"> </span><span class="n">speed</span><span class="o">=</span><span class="n">distance</span><span class="o">/</span><span class="n">air_time</span><span class="o">*</span><span class="m">60</span><span class="p">)</span><span class="w"> </span><span class="c1">#renames columns without dropping</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>Other two handy functions to work with a single table are <strong>dictinct()</strong> and <strong>summarize()</strong>:</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">distinct</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">tailnum</span><span class="p">)</span><span class="w"> </span><span class="c1">#finds unique values in a table</span><span class="w">
+</span><span class="n">distinct</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="p">)</span><span class="w">
+</span><span class="n">n</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">          </span><span class="c1">#the number of observations in each group</span><span class="w">
+</span><span class="n">n_distinct</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">#the number of unique values in x (first(x), last(x) and nth(x,n))</span><span class="w">
+</span></code></pre></div></div>
+<blockquote>
+  <p><strong>Summarize()</strong> is used with affregate functions (i.e. min, max, mean,…). Dplyr also provides some special functions:</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summarize</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">dep_delay</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span><span class="w"> </span><span class="c1">#collapses the data into a single variable</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p><em>OBSERVATIONS</em>:
+ Syntaxis of all the verbs is always the same:</p>
+  <ul>
+    <li>the first argument is always a dataframe name</li>
+    <li>next you describe what you do with a dataframe</li>
+    <li>the result is a new dataframe</li>
+  </ul>
 </blockquote>
 
 <h2 id="grouped-operations">Grouped operations</h2>
 
 <blockquote>
-  <p>Function <strong>group_by()</strong> breaks down a dataset into specific groups of rows. Next, when we apply the verbs above on the resulting object, they’ll be
-automatically applied “by group”. For example, the following code first creates grouping by destination. Then calculates the numbers of planes and
-flights for each group.</p>
+  <p>Function <strong>group_by()</strong> breaks down a dataset into specific groups of rows.
+Next, when we apply the verbs above on the resulting object, they’ll be
+automatically applied “by group”.</p>
 </blockquote>
 
-<p>``` {r eval = FALSE}
-destinations&lt;- group_by(flights, dest)
-summarize(destinations,
-          planes = n_distinct(tailnum),
-          flights = n ()
-          )</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Chaining
+<p>For example, the following code first creates
+grouping by destination. Then calculates the numbers of planes and
+flights for each group.</p>
 
-A chaining operator **%&gt;%** takes the output from one function and feeds it to the first argument of the next function (turns `x%&gt;%f(y)` into `f(x,y)`.
-It might seem confusing at the first glance, but gets more clear when looking at an example:
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">destinations</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">group_by</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="p">)</span><span class="w">
+</span><span class="n">summarize</span><span class="p">(</span><span class="n">destinations</span><span class="p">,</span><span class="w">
+          </span><span class="n">planes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_distinct</span><span class="p">(</span><span class="n">tailnum</span><span class="p">),</span><span class="w">
+          </span><span class="n">flights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">()</span><span class="w">
+          </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<h2 id="chaining">Chaining</h2>
 
-| Wrapping functions                                 | Chaining equivalent                              |
-| :------------------------------------------------: |:------------------------------------------------:|
-| `filter(` &lt;br&gt; `summarize(`&lt;br&gt; `select(`&lt;br&gt;`group_by(flights, year, month, day),`&lt;br&gt; `arr_delay, dep_delay),`&lt;br&gt;`arr=mean(arr_delay, na.rm=TRUE),`&lt;br&gt;`dep=mean(dep_delay, na.rm=TRUE)`&lt;br&gt;`),`&lt;br&gt;`arr&gt;30 | dep&gt;30`&lt;br&gt;`)` |  `flights %&gt;%`&lt;br&gt; `group_by(year,month,day)%&gt;%`&lt;br&gt;`select(arr_delay,dep_delay)%&gt;%`&lt;br&gt;`summarize(`&lt;br&gt;`arr=mean(arr_delay, na.rm = TRUE),`&lt;br&gt;`dep=mean(dep_delay, na.rm = TRUE)`&lt;br&gt;`)%&gt;%`&lt;br&gt;`filter(arr&gt;30|dep&gt;30)`
+<p>A chaining operator <strong>%&gt;%</strong> takes the output from one function and feeds it to the first argument of the next function (turns <code class="highlighter-rouge">x%&gt;%f(y)</code> into <code class="highlighter-rouge">f(x,y)</code>.
+It might seem confusing at the first glance, but gets more clear when looking at an example:</p>
 
-#Two-table verbs
-In practice we normaly have many tables that contribute to the analysis, and we need tools to use them all together. In **dplyr** there're two families of verbs
-that work with two tables at a time:
+<table>
+  <thead>
+    <tr>
+      <th>Wrapping functions</th>
+      <th>Chaining equivalent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">filter(</code> <br /> <code class="highlighter-rouge">summarize(</code><br /> <code class="highlighter-rouge">select(</code><br /><code class="highlighter-rouge">group_by(flights, year, month, day),</code><br /> <code class="highlighter-rouge">arr_delay, dep_delay),</code><br /><code class="highlighter-rouge">arr=mean(arr_delay, na.rm=TRUE),</code><br /><code class="highlighter-rouge">dep=mean(dep_delay, na.rm=TRUE)</code><br /><code class="highlighter-rouge">),</code><br /><code class="highlighter-rouge">arr&gt;30 | dep&gt;30</code><br /><code class="highlighter-rouge">)</code></td>
+      <td><code class="highlighter-rouge">flights %&gt;%</code><br /> <code class="highlighter-rouge">group_by(year,month,day)%&gt;%</code><br /><code class="highlighter-rouge">select(arr_delay,dep_delay)%&gt;%</code><br /><code class="highlighter-rouge">summarize(</code><br /><code class="highlighter-rouge">arr=mean(arr_delay, na.rm = TRUE),</code><br /><code class="highlighter-rouge">dep=mean(dep_delay, na.rm = TRUE)</code><br /><code class="highlighter-rouge">)%&gt;%</code><br /><code class="highlighter-rouge">filter(arr&gt;30|dep&gt;30)</code></td>
+    </tr>
+  </tbody>
+</table>
 
-* Mutating joins (to add new fariables to one table from matching rows in another)
+<h1 id="two-table-verbs">Two-table verbs</h1>
 
-* Filtering joins (filter observations from one table based on whether or not they match an observation in another table)
+<p>In practice, we usually work with many tables that contribute to the analysis, and
+we need tools to use them all together. In <strong>dplyr</strong> there’re two families of verbs
+that work with two tables at a time:</p>
 
-* Set operations (combine the observations in the datasets, as if they were set elements)
+<ul>
+  <li>
+    <p><em>Mutating joins</em> (to add new fariables to one table from matching rows in another)</p>
+  </li>
+  <li>
+    <p><em>Filtering joins</em> (filter observations from one table based on whether or not they match an observation in another table)</p>
+  </li>
+  <li>
+    <p><em>Set operations</em> (combine the observations in the datasets, as if they were set elements)</p>
+  </li>
+</ul>
 
-## Mutating joins
+<h2 id="mutating-joins">Mutating joins</h2>
 
-Allow to combine variables from multiple tables.
+<p>Allow to combine variables from multiple tables.</p>
 
-&gt; For example, *nyflights13* dataset contains one table with flight info, and another table with mapping between abbreviations and full names. We can use
-join to ass the carrier names to the flight data:
+<p>For example, <em>nyflights13</em> dataset contains one table with flight info, and another table with mapping between abbreviations and full names. We can use
+join to ass the carrier names to the flight data:</p>
 
-```{r eval = FALSE}
-flights2 &lt;- flights %&gt;% select (year:day, hour, origin, dest, tailnum, carrier)
-flights2 %&gt;% left_join(airlines)
-
-</code></pre></div></div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">flights2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">flights</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="p">(</span><span class="n">year</span><span class="o">:</span><span class="n">day</span><span class="p">,</span><span class="w"> </span><span class="n">hour</span><span class="p">,</span><span class="w"> </span><span class="n">origin</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="n">tailnum</span><span class="p">,</span><span class="w"> </span><span class="n">carrier</span><span class="p">)</span><span class="w">
+</span><span class="n">flights2</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">airlines</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 <p><strong>Arguments</strong>: besides <strong>x</strong> and <strong>y</strong> (tables), there is also <strong>by</strong> argument that controls which variables are used to match observations in the two tables.</p>
 
 <table>
@@ -617,7 +650,7 @@ flights2 %&gt;% left_join(airlines)
     <tr>
       <th style="text-align: center">by =</th>
       <th style="text-align: center">Code</th>
-      <th style="text-align: center">Comments</th>
+      <th>Comments</th>
       <th> </th>
     </tr>
   </thead>
@@ -625,25 +658,25 @@ flights2 %&gt;% left_join(airlines)
     <tr>
       <td style="text-align: center"><code class="highlighter-rouge">by = NULL</code></td>
       <td style="text-align: center"><code class="highlighter-rouge">flights2 %&gt;% left_join(weather)</code></td>
-      <td style="text-align: center">Natural join, dplyr uses varibles that appear in both tables</td>
+      <td>Natural join, dplyr uses varibles that appear in both tables</td>
       <td> </td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="highlighter-rouge">by = "x"</code></td>
       <td style="text-align: center"><code class="highlighter-rouge">flights2 %&gt;% left_join(planes, by = "tailnum")</code></td>
-      <td style="text-align: center">Join by some common variables, specified in char vector “x”</td>
+      <td>Join by some common variables, specified in char vector “x”</td>
       <td> </td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="highlighter-rouge">by = c("x"="a")</code></td>
       <td style="text-align: center"><code class="highlighter-rouge">flights2 %&gt;% left_join(airports, c("dest"="foo"))</code></td>
-      <td style="text-align: center">Join by a named character vector. It will match variable x in table x to variable a in table b</td>
+      <td>Join by a named character vector. It will match variable x in table x to variable a in table b</td>
       <td> </td>
     </tr>
   </tbody>
 </table>
 
-<h2 id="types-of-joins">Types of joins</h2>
+<h3 id="types-of-mutating-joins">Types of mutating joins</h3>
 <p>There are four types of joins that behave differently when a match is not found. Suppose we have two tables in our database, df1 and df2.</p>
 
 <table>
@@ -855,8 +888,8 @@ of the matching observations.</p>
 <p>Filtering joins match observations in the same way as mutating joins, but affect the observations, not variables. There are two kinds of such joins:</p>
 
 <ul>
-  <li>semi_join(x, y) keeps all observations in x that have a match in y</li>
-  <li>anti_join(x, y) drops all observations in x that have a match in y</li>
+  <li><strong>semi_join(x, y)</strong> keeps all observations in x that have a match in y</li>
+  <li><strong>anti_join(x, y)</strong> drops all observations in x that have a match in y</li>
 </ul>
 
 <blockquote>
@@ -867,9 +900,9 @@ of the matching observations.</p>
 <p>Set operations expect the x and y inputs to have the same variables and treat the observations as if they were sets.</p>
 
 <ul>
-  <li>intersect(x, y) returns only observations in both x and y</li>
-  <li>union(x, y) returns the unique observations in x and y</li>
-  <li>setdiff(x, y) returns observations in x, but not in y</li>
+  <li><strong>intersect(x, y)</strong> returns only observations in both x and y</li>
+  <li><strong>union(x, y)</strong> returns the unique observations in x and y</li>
+  <li><strong>setdiff(x, y)</strong> returns observations in x, but not in y</li>
 </ul>
 
 <h2 id="r-to-sql-translation">R to SQL translation</h2>
@@ -877,50 +910,50 @@ of the matching observations.</p>
 <table>
   <thead>
     <tr>
-      <th style="text-align: center">R</th>
-      <th style="text-align: center">SQL</th>
+      <th>R</th>
+      <th>SQL</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">inner_join()</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x JOIN y ON x.a = y.a </code></td>
+      <td><code class="highlighter-rouge">inner_join()</code></td>
+      <td><code class="highlighter-rouge">SELECT*FROM x JOIN y ON x.a = y.a </code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">left_join()</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x LEFT JOIN y ON x.a = y.a</code></td>
+      <td><code class="highlighter-rouge">left_join()</code></td>
+      <td><code class="highlighter-rouge">SELECT*FROM x LEFT JOIN y ON x.a = y.a</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">right_join()</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x RIGHT y ON x.a = y.a</code></td>
+      <td><code class="highlighter-rouge">right_join()</code></td>
+      <td><code class="highlighter-rouge">SELECT*FROM x RIGHT y ON x.a = y.a</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">full_join()</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x FULL y ON x.a = y.a</code></td>
+      <td><code class="highlighter-rouge">full_join()</code></td>
+      <td><code class="highlighter-rouge">SELECT*FROM x FULL y ON x.a = y.a</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"> </td>
-      <td style="text-align: center"> </td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">semi_join()</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a</code></td>
+      <td><code class="highlighter-rouge">semi_join()</code></td>
+      <td><code class="highlighter-rouge">SELECT*FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"> </td>
-      <td style="text-align: center"> </td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">intersect(x, y)</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT * FROM x INTERSECT SELECT * FROM y</code></td>
+      <td><code class="highlighter-rouge">intersect(x, y)</code></td>
+      <td><code class="highlighter-rouge">SELECT * FROM x INTERSECT SELECT * FROM y</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">union(x, y)</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">UNION * FROM x INTERSECT SELECT * FROM y</code></td>
+      <td><code class="highlighter-rouge">union(x, y)</code></td>
+      <td><code class="highlighter-rouge">UNION * FROM x INTERSECT SELECT * FROM y</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">setdiff(x, y)</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">SELECT * FROM x EXCEPT SELECT * FROM y</code></td>
+      <td><code class="highlighter-rouge">setdiff(x, y)</code></td>
+      <td><code class="highlighter-rouge">SELECT * FROM x EXCEPT SELECT * FROM y</code></td>
     </tr>
   </tbody>
 </table>
@@ -931,24 +964,22 @@ of the matching observations.</p>
 
 <h1 id="laziness">Laziness</h1>
 
-<p>Dplyr is tryign to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it.
-Dplyr delays an ongoing task untill the last possible moment (it collects everything together and then sends it in one step).</p>
+<p><em>Dplyr</em> is tryign to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it. <em>Dplyr</em> delays an ongoing task until the last possible moment (it collects everything together and then sends it in one step).</p>
 
 <blockquote>
   <p>Example:</p>
 </blockquote>
 
-<p><code class="highlighter-rouge">{r eval = FALSE}
-c1 &lt;- filter(flights_sqlite, year == 2013, month == 1, day ==1)
-c2 &lt;- select(c1, year, month, day, carrier, dep_delay, air_time, distance)
-c3 &lt;- mutate(c2, speed = distance/air_time*60)
-c4&lt;- arrange (c3, year, month, day, carrier)
-</code></p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">flights_sqlite</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2013</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="w"> </span><span class="o">==</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">c</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">select</span><span class="p">(</span><span class="n">c</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="p">,</span><span class="w"> </span><span class="n">carrier</span><span class="p">,</span><span class="w"> </span><span class="n">dep_delay</span><span class="p">,</span><span class="w"> </span><span class="n">air_time</span><span class="p">,</span><span class="w"> </span><span class="n">distance</span><span class="p">)</span><span class="w">
+</span><span class="n">c</span><span class="m">3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mutate</span><span class="p">(</span><span class="n">c</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="o">/</span><span class="n">air_time</span><span class="o">*</span><span class="m">60</span><span class="p">)</span><span class="w">
+</span><span class="n">c</span><span class="m">4</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">arrange</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="p">,</span><span class="w"> </span><span class="n">carrier</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
-<p>This sequence of commands never touches the database. Not untill we ask for the data (for example, priting c4), that dplyr generates SQL
+<p>This sequence of commands never touches the database. Not until we ask for the data (for example, printing c4), that <em>dplyr</em> generates SQL
 and requests the result. But even then it only pulls 10 rows.</p>
 
-<p>To pull down ALL the results, use <strong>collect()</strong> function, which returns a tbl_df(). We can check which query was generated: <code class="highlighter-rouge">c4$query</code>.</p>
+<p>To pull down ALL the results, use <strong>collect()</strong> function, which returns a tbl_df(). We also can check which query was generated: <code class="highlighter-rouge">c4$query</code>.</p>
 
 <blockquote>
   <p>Forcing computation</p>

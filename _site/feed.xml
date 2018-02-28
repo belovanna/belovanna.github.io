@@ -1,12 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-02-28T20:41:58+03:00</updated><id>http://localhost:4000/</id><title type="html">Blog</title><subtitle>Personal website</subtitle><author><name>Anna Belova</name><email>anabelova@gmail.com</email><uri>https://www.kaggle.com/anello</uri></author><entry><title type="html">Working with databases in R: dplyr</title><link href="http://localhost:4000/r/tutorial/working-with-databases-in-R/" rel="alternate" type="text/html" title="Working with databases in R: dplyr" /><published>2018-02-27T15:42:32+03:00</published><updated>2018-02-27T15:42:32+03:00</updated><id>http://localhost:4000/r/tutorial/working-with-databases-in-R</id><content type="html" xml:base="http://localhost:4000/r/tutorial/working-with-databases-in-R/">&lt;aside class=&quot;sidebar__right&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-02-28T21:35:32+03:00</updated><id>http://localhost:4000/</id><title type="html">Blog</title><subtitle>Personal website</subtitle><author><name>Anna Belova</name><email>anabelova@gmail.com</email><uri>https://www.kaggle.com/anello</uri></author><entry><title type="html">Working with databases in R: dplyr</title><link href="http://localhost:4000/r/tutorial/working-with-databases-in-R/" rel="alternate" type="text/html" title="Working with databases in R: dplyr" /><published>2018-02-27T15:42:32+03:00</published><updated>2018-02-27T15:42:32+03:00</updated><id>http://localhost:4000/r/tutorial/working-with-databases-in-R</id><content type="html" xml:base="http://localhost:4000/r/tutorial/working-with-databases-in-R/">&lt;aside class=&quot;sidebar__right&quot;&gt;
 &lt;nav class=&quot;toc&quot;&gt;
     &lt;header&gt;&lt;h4 class=&quot;nav__title&quot;&gt;&lt;i class=&quot;fas fa-cog&quot;&gt;&lt;/i&gt; On this page&lt;/h4&gt;&lt;/header&gt;
 &lt;ul class=&quot;toc__menu&quot; id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#introduction&quot; id=&quot;markdown-toc-introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#establishing-the-connection&quot; id=&quot;markdown-toc-establishing-the-connection&quot;&gt;Establishing the connection&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#establishing-a-connection&quot; id=&quot;markdown-toc-establishing-a-connection&quot;&gt;Establishing a connection&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#intorduction-to-dplyr-package&quot; id=&quot;markdown-toc-intorduction-to-dplyr-package&quot;&gt;Intorduction to dplyr package&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#single-table-verbs&quot; id=&quot;markdown-toc-single-table-verbs&quot;&gt;Single table verbs&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#grouped-operations&quot; id=&quot;markdown-toc-grouped-operations&quot;&gt;Grouped operations&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#types-of-joins&quot; id=&quot;markdown-toc-types-of-joins&quot;&gt;Types of joins&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#chaining&quot; id=&quot;markdown-toc-chaining&quot;&gt;Chaining&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#two-table-verbs&quot; id=&quot;markdown-toc-two-table-verbs&quot;&gt;Two-table verbs&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#mutating-joins&quot; id=&quot;markdown-toc-mutating-joins&quot;&gt;Mutating joins&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#types-of-mutating-joins&quot; id=&quot;markdown-toc-types-of-mutating-joins&quot;&gt;Types of mutating joins&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#filtering-joins&quot; id=&quot;markdown-toc-filtering-joins&quot;&gt;Filtering joins&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#set-operations&quot; id=&quot;markdown-toc-set-operations&quot;&gt;Set operations&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;#r-to-sql-translation&quot; id=&quot;markdown-toc-r-to-sql-translation&quot;&gt;R to SQL translation&lt;/a&gt;&lt;/li&gt;
@@ -29,196 +37,215 @@ Moreover, dplyr allows to interact with databases without using SQL, taking the 
 
 &lt;center&gt;&lt;img src=&quot;https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png&quot; /&gt;&lt;/center&gt;
 
-&lt;p&gt;To use databases with &lt;em&gt;dplyr&lt;/em&gt;, we also need to install &lt;em&gt;dbplyr&lt;/em&gt;…\&lt;/p&gt;
-
-&lt;p&gt;(It’s is a relatively recent backend package which now contains all the dplyr code related to connecting to databases. More on &lt;em&gt;dbplyr&lt;/em&gt; &lt;a href=&quot;https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html&quot; title=&quot;Cran Page&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/&quot; title=&quot;Rstudion blog&quot;&gt;here&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;To use databases with &lt;em&gt;dplyr&lt;/em&gt;, we also need to install &lt;em&gt;dbplyr&lt;/em&gt;. It’s is a
+relatively recent backend package which now contains all the dplyr code related
+to connecting to databases. More on &lt;em&gt;dbplyr&lt;/em&gt; &lt;a href=&quot;https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html&quot; title=&quot;Cran Page&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/&quot; title=&quot;Rstudion blog&quot;&gt;here&lt;/a&gt;)&lt;/p&gt;
 
 &lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;install.packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dbplyr&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;install.packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;RMySQL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#for working with MySQL database&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;…and a backend packages. The &lt;strong&gt;DBI&lt;/strong&gt; backend package comes with dplyr automatically. &lt;strong&gt;DBI&lt;/strong&gt; provides a common interface that allows dplyr to work with many
-different databases using the same code. But we you need to install a specific backend for the database that we want to connect to.&lt;/p&gt;
+&lt;p&gt;We’ll also need &lt;em&gt;DBI&lt;/em&gt; package. It comes with dplyr automatically and provides a common interface that allows dplyr to work with many different databases using the same code.
+Finally,  we have to install a specific backend for the database that we want to connect to.&lt;/p&gt;
 
 &lt;p&gt;Most commonly used backends are:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;RMySQL&lt;/strong&gt; connects to MySQL and MariaDB&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;RMySQL&lt;/em&gt; connects to MySQL and MariaDB&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;RPostgreSQL&lt;/strong&gt; connects to Postgres and Redshift.&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;RPostgreSQL&lt;/em&gt; connects to Postgres and Redshift.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;RSQLite&lt;/strong&gt; embeds a SQLite database.&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;RSQLite&lt;/em&gt; embeds a SQLite database.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;odbc&lt;/strong&gt; connects to many commercial databases via the open database connectivity protocol.&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;odbc&lt;/em&gt; connects to many commercial databases via the open database connectivity protocol.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;bigrquery&lt;/strong&gt; connects to Google’s BigQuery.&lt;/p&gt;
+    &lt;p&gt;&lt;em&gt;bigrquery&lt;/em&gt; connects to Google’s BigQuery.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;establishing-the-connection&quot;&gt;Establishing the connection&lt;/h1&gt;
+&lt;h1 id=&quot;establishing-a-connection&quot;&gt;Establishing a connection&lt;/h1&gt;
 
-&lt;p&gt;As the first thing to do, we load dplyr and one of the backend packages we’ve chosen:
-```{r eval = FALSE, echo = TRUE, message = FALSE}
-library(dplyr)
-library(RMySQL)&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Next, we should establish the connection with **DBI::dbConnect()**. The arguments to DBI::dbConnect() vary from database to database,
-but the first argument is always the database backend.
+&lt;p&gt;First, we load dplyr and one of the backend packages we’ve chosen:&lt;/p&gt;
 
-```{r eval = FALSE}
-con &amp;lt;- DBI::dbConnect(RMySQL::MySQL(), path = &quot;:memory:&quot;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;It’s RSQLite::SQLite() for RSQLite, RMySQL::MySQL() for RMySQL, RPostgreSQL::PostgreSQL() for RPostgreSQL, odbc::odbc() for odbc,
-and bigrquery::bigquery() for BigQuery. SQLite only needs one other argument: the path to the database.
-Here we use the special string, “:memory:”, which causes SQLite to make a temporary in-memory database.&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dplyr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RMySQL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Next, we should establish the connection with &lt;strong&gt;DBI::dbConnect()&lt;/strong&gt;. The arguments
+to DBI::dbConnect() vary from database to database, but the first argument is
+always the database backend.&lt;/p&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DBI&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dbConnect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RMySQL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MySQL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;:memory:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;It’s &lt;code class=&quot;highlighter-rouge&quot;&gt;RSQLite::SQLite()&lt;/code&gt; for RSQLite, &lt;code class=&quot;highlighter-rouge&quot;&gt;RMySQL::MySQL()&lt;/code&gt; for RMySQL, &lt;code class=&quot;highlighter-rouge&quot;&gt;RPostgreSQL::PostgreSQL()&lt;/code&gt; for RPostgreSQL, &lt;code class=&quot;highlighter-rouge&quot;&gt;odbc::odbc()&lt;/code&gt; for odbc, and &lt;code class=&quot;highlighter-rouge&quot;&gt;bigrquery::bigquery()&lt;/code&gt; for BigQuery. SQLite only needs one other argument: the path to the database.
+Here we use the special string, &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;:memory:&quot;&lt;/code&gt;, which causes SQLite to make a temporary
+in-memory database.&lt;/p&gt;
 
 &lt;p&gt;Most existing databases live on another server. In real life the connection code will look more like this:&lt;/p&gt;
 
-&lt;p&gt;```{r eval = FALSE}
-con &amp;lt;- DBI::dbConnect(RMySQL::MySQL(),
-  host = “database.rstudio.com”,
-  user = “hadley”,
-  password = rstudioapi::askForPassword(“Database password”)
-)&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-We can still continue to the old style src_mysql(), src_postgres(), and src_sqlite() functions, which still live in dplyr:
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;con&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DBI&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dbConnect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RMySQL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MySQL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;database.rstudio.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hadley&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rstudioapi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;askForPassword&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Database password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Old style functions are src_mysql(), src_postgres(), and src_sqlite() functions,
+and they still live in dplyr:&lt;/p&gt;
 
-```{r eval = FALSE}
-ConDplyr = src_mysql(dbname = &quot;abc_api_efg_db&quot;, user = &quot;annaBel&quot;, password =&quot;mypass&quot;, host=&quot;sql.abc.com&quot;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html&quot; title=&quot;Cran Page&quot;&gt;More on dbplyr&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ConDplyr&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src_mysql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dbname&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;abc_api_efg_db&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;annaBel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;mypass&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sql.abc.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;More on dbplyr &lt;a href=&quot;https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html&quot; title=&quot;Cran Page&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&quot;intorduction-to-dplyr-package&quot;&gt;Intorduction to dplyr package&lt;/h1&gt;
 
-&lt;p&gt;Let’s try to see the functioning of dplyr package using nycflights13 dataset. Load the package, and see what’s in the table “flights”.
-```{r eval = FALSE, echo = TRUE, message = FALSE}
-library(nycflights13)
-data(package=”nycflights13”) #returns tables that are available in a dataset
-dim(flights) #size of a specific table
-head(flights, n=2) #head of a specific tables
-str(flights) #structure of a specific table&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## Single table verbs
-Single table verbs are the commands for performing data manipulations within a single table of a dataset. Let's check the main fuctions.
+&lt;p&gt;Let’s see dplyr at work using &lt;code class=&quot;highlighter-rouge&quot;&gt;nycflights13&lt;/code&gt; dataset. Load the package, and see
+what’s in the table “flights”.&lt;/p&gt;
 
-&amp;gt;  Filtering certain rows of a dataframe can be done with the help of **filter** and **slice** functions. The first one helps to filter rows with certain
-characteristics (first month, first day, departure delay is 2). Whereas **slice** function picks rows by their position in a dataframe (pick rows from 1 to 5 in the example).
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nycflights13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#size of a specific table&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#head of a specific tables&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#structure of a specific table&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;single-table-verbs&quot;&gt;Single table verbs&lt;/h2&gt;
 
-```{r eval = FALSE}
-filter(flights, month==1, day==1, dep_delay==2)  #select a subset of rows
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;```{r eval = FALSE}
-slice(flights, 1:5)  #select rows by position&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&amp;gt; Command **arrange** helps to sort information in a dataframe by fields. The first argument is always a dataframe name,
-then all the fields we want a DF to be arranged by. The second example arranges by arrival delay (in descending order).
-
-```{r eval = FALSE}
-arrange(dataframe name, field 1, field 2, ...)  #orders a dataframe by fields
-arrange(flights, year, month, day)
-arrange(flights, desc(arr_delay))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
+&lt;p&gt;Single table verbs are the commands for data manipulations within a single table of a dataset. Let’s check some important functions.&lt;/p&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;In terms of working with columns, Dplyr allows up to pick columns, rename them, or modify the dataframe by creating/adding new columns.&lt;/p&gt;
+  &lt;p&gt;Filtering certain rows of a dataframe can be done with the help of &lt;strong&gt;filter()&lt;/strong&gt; and &lt;strong&gt;slice()&lt;/strong&gt; functions.  &lt;strong&gt;filter()&lt;/strong&gt; helps to filter rows with certain characteristics (first month, first day, departure delay is 2). Whereas &lt;strong&gt;slice()&lt;/strong&gt; function picks rows by their position in a dataframe (pick rows from 1 to 5 in the example).&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;strong&gt;select&lt;/strong&gt; function allows rapidly subset the columns we’re interested in. This function can be used in a combination
-with a number of helper functions: &lt;strong&gt;starts_with()&lt;/strong&gt;, &lt;strong&gt;ends_with()&lt;/strong&gt;, &lt;strong&gt;matches()&lt;/strong&gt;, &lt;strong&gt;contains()&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dep_delay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#select a subset of rows&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#select rows by position&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;arrange()&lt;/strong&gt; function helps to sort information in a dataframe by fields. The first argument is always a dataframe name, then all the fields we want a DF to be arranged by. The second example arranges by arrival delay (in descending order).&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;```{r eval = FALSE}
-select(dataframe name, col name 1, col name 2, …)  #orders a dataframe by fields
-select(flights, year: day) #select columns between year and day
-select(flights, -(year:day)) #select except columns between year and day&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;One can also use **select()** to rename columns `select(flights, tail_num= tailnumber)`. But better use **rename()** function:
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;arrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataframe&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#orders a dataframe by fields&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr_delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#arrange by arriving delay in descending order&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-```{r eval = FALSE}
-rename(flights, tail_num=tailnumber) #renames columns without dropping
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;We can also modify our dataframe by adding new columns that are functions of the existing columns with the help of &lt;strong&gt;mutate()&lt;/strong&gt; and
-&lt;strong&gt;transmutate()&lt;/strong&gt; functions. The latter one is used if we only want to keep new variables.&lt;/p&gt;
-
-&lt;p&gt;```{r eval = FALSE}
-mutate(flights, gain=arr_delay-dep_delay, speed=distance/air_time*60) #renames columns without dropping&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&amp;gt; Other two handy functions to work with a single table are **dictinct()** and **summarize()**:
-
-```{r eval = FALSE}
-distinct(flights, tailnum) #finds unique values in a table
-distinct(flights, origin, dest)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Summarize()&lt;/strong&gt; is used with affregate functions (i.e. min, max, mean,…). Dplyr also provides some special functions:
-``` {r eval = FALSE}
-n(x) #the number of observations in each group
-n_distinct(x) #the number of unique values in x
-first(x), last(x) and nth(x,n)&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-```{r eval = FALSE}
-summarize(flights, delay = mean(dep_delay, na.rm = TRUE)) #collapses the data into a single variable
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In terms of working with columns, &lt;em&gt;Dplyr&lt;/em&gt; allows to pick columns, rename them,
+or modify the dataframe by creating/adding new columns.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;em&gt;OBSERVATIONS&lt;/em&gt;:&lt;/p&gt;
-  &lt;ol&gt;
-    &lt;li&gt;Syntaxis of all the verbs is always the same:
-      &lt;ul&gt;
-        &lt;li&gt;the first argument is always a dataframe name&lt;/li&gt;
-        &lt;li&gt;next you describe what you do with a dataframe&lt;/li&gt;
-        &lt;li&gt;the result is a new dataframe&lt;/li&gt;
-      &lt;/ul&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
+  &lt;p&gt;&lt;strong&gt;select&lt;/strong&gt;  allows rapidly subset the columns we’re interested in. This function can be used in a combination with a number of helper functions: &lt;strong&gt;starts_with()&lt;/strong&gt;, &lt;strong&gt;ends_with()&lt;/strong&gt;, &lt;strong&gt;matches()&lt;/strong&gt;, &lt;strong&gt;contains()&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataframe&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#orders a dataframe by fields&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#select columns between year and day&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#select except columns between year and day&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;One can also use &lt;strong&gt;select()&lt;/strong&gt; to rename columns &lt;code class=&quot;highlighter-rouge&quot;&gt;select(flights, tail_num= tailnumber)&lt;/code&gt;.
+But it’s more common to use &lt;strong&gt;rename()&lt;/strong&gt; function:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail_num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tailnumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#renames columns without dropping&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;We can also modify our dataframe by adding new columns that are functions of the existing columns with the help of &lt;strong&gt;mutate()&lt;/strong&gt; and &lt;strong&gt;transmutate()&lt;/strong&gt; functions. The latter one is used if we only want to keep new variables.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mutate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr_delay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dep_delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;speed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;air_time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#renames columns without dropping&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Other two handy functions to work with a single table are &lt;strong&gt;dictinct()&lt;/strong&gt; and &lt;strong&gt;summarize()&lt;/strong&gt;:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;distinct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tailnum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#finds unique values in a table&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distinct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#the number of observations in each group&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_distinct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#the number of unique values in x (first(x), last(x) and nth(x,n))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Summarize()&lt;/strong&gt; is used with affregate functions (i.e. min, max, mean,…). Dplyr also provides some special functions:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;summarize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dep_delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;na.rm&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#collapses the data into a single variable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;OBSERVATIONS&lt;/em&gt;:
+ Syntaxis of all the verbs is always the same:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;the first argument is always a dataframe name&lt;/li&gt;
+    &lt;li&gt;next you describe what you do with a dataframe&lt;/li&gt;
+    &lt;li&gt;the result is a new dataframe&lt;/li&gt;
+  &lt;/ul&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;grouped-operations&quot;&gt;Grouped operations&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Function &lt;strong&gt;group_by()&lt;/strong&gt; breaks down a dataset into specific groups of rows. Next, when we apply the verbs above on the resulting object, they’ll be
-automatically applied “by group”. For example, the following code first creates grouping by destination. Then calculates the numbers of planes and
-flights for each group.&lt;/p&gt;
+  &lt;p&gt;Function &lt;strong&gt;group_by()&lt;/strong&gt; breaks down a dataset into specific groups of rows.
+Next, when we apply the verbs above on the resulting object, they’ll be
+automatically applied “by group”.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;``` {r eval = FALSE}
-destinations&amp;lt;- group_by(flights, dest)
-summarize(destinations,
-          planes = n_distinct(tailnum),
-          flights = n ()
-          )&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;## Chaining
+&lt;p&gt;For example, the following code first creates
+grouping by destination. Then calculates the numbers of planes and
+flights for each group.&lt;/p&gt;
 
-A chaining operator **%&amp;gt;%** takes the output from one function and feeds it to the first argument of the next function (turns `x%&amp;gt;%f(y)` into `f(x,y)`.
-It might seem confusing at the first glance, but gets more clear when looking at an example:
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;destinations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summarize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destinations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;planes&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_distinct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tailnum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;chaining&quot;&gt;Chaining&lt;/h2&gt;
 
-| Wrapping functions                                 | Chaining equivalent                              |
-| :------------------------------------------------: |:------------------------------------------------:|
-| `filter(` &amp;lt;br&amp;gt; `summarize(`&amp;lt;br&amp;gt; `select(`&amp;lt;br&amp;gt;`group_by(flights, year, month, day),`&amp;lt;br&amp;gt; `arr_delay, dep_delay),`&amp;lt;br&amp;gt;`arr=mean(arr_delay, na.rm=TRUE),`&amp;lt;br&amp;gt;`dep=mean(dep_delay, na.rm=TRUE)`&amp;lt;br&amp;gt;`),`&amp;lt;br&amp;gt;`arr&amp;gt;30 | dep&amp;gt;30`&amp;lt;br&amp;gt;`)` |  `flights %&amp;gt;%`&amp;lt;br&amp;gt; `group_by(year,month,day)%&amp;gt;%`&amp;lt;br&amp;gt;`select(arr_delay,dep_delay)%&amp;gt;%`&amp;lt;br&amp;gt;`summarize(`&amp;lt;br&amp;gt;`arr=mean(arr_delay, na.rm = TRUE),`&amp;lt;br&amp;gt;`dep=mean(dep_delay, na.rm = TRUE)`&amp;lt;br&amp;gt;`)%&amp;gt;%`&amp;lt;br&amp;gt;`filter(arr&amp;gt;30|dep&amp;gt;30)`
+&lt;p&gt;A chaining operator &lt;strong&gt;%&amp;gt;%&lt;/strong&gt; takes the output from one function and feeds it to the first argument of the next function (turns &lt;code class=&quot;highlighter-rouge&quot;&gt;x%&amp;gt;%f(y)&lt;/code&gt; into &lt;code class=&quot;highlighter-rouge&quot;&gt;f(x,y)&lt;/code&gt;.
+It might seem confusing at the first glance, but gets more clear when looking at an example:&lt;/p&gt;
 
-#Two-table verbs
-In practice we normaly have many tables that contribute to the analysis, and we need tools to use them all together. In **dplyr** there're two families of verbs
-that work with two tables at a time:
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Wrapping functions&lt;/th&gt;
+      &lt;th&gt;Chaining equivalent&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;filter(&lt;/code&gt; &lt;br /&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;summarize(&lt;/code&gt;&lt;br /&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;select(&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;group_by(flights, year, month, day),&lt;/code&gt;&lt;br /&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;arr_delay, dep_delay),&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;arr=mean(arr_delay, na.rm=TRUE),&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dep=mean(dep_delay, na.rm=TRUE)&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;),&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;arr&amp;gt;30 | dep&amp;gt;30&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flights %&amp;gt;%&lt;/code&gt;&lt;br /&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;group_by(year,month,day)%&amp;gt;%&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;select(arr_delay,dep_delay)%&amp;gt;%&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;summarize(&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;arr=mean(arr_delay, na.rm = TRUE),&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dep=mean(dep_delay, na.rm = TRUE)&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;)%&amp;gt;%&lt;/code&gt;&lt;br /&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;filter(arr&amp;gt;30|dep&amp;gt;30)&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-* Mutating joins (to add new fariables to one table from matching rows in another)
+&lt;h1 id=&quot;two-table-verbs&quot;&gt;Two-table verbs&lt;/h1&gt;
 
-* Filtering joins (filter observations from one table based on whether or not they match an observation in another table)
+&lt;p&gt;In practice, we usually work with many tables that contribute to the analysis, and
+we need tools to use them all together. In &lt;strong&gt;dplyr&lt;/strong&gt; there’re two families of verbs
+that work with two tables at a time:&lt;/p&gt;
 
-* Set operations (combine the observations in the datasets, as if they were set elements)
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Mutating joins&lt;/em&gt; (to add new fariables to one table from matching rows in another)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Filtering joins&lt;/em&gt; (filter observations from one table based on whether or not they match an observation in another table)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Set operations&lt;/em&gt; (combine the observations in the datasets, as if they were set elements)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-## Mutating joins
+&lt;h2 id=&quot;mutating-joins&quot;&gt;Mutating joins&lt;/h2&gt;
 
-Allow to combine variables from multiple tables.
+&lt;p&gt;Allow to combine variables from multiple tables.&lt;/p&gt;
 
-&amp;gt; For example, *nyflights13* dataset contains one table with flight info, and another table with mapping between abbreviations and full names. We can use
-join to ass the carrier names to the flight data:
+&lt;p&gt;For example, &lt;em&gt;nyflights13&lt;/em&gt; dataset contains one table with flight info, and another table with mapping between abbreviations and full names. We can use
+join to ass the carrier names to the flight data:&lt;/p&gt;
 
-```{r eval = FALSE}
-flights2 &amp;lt;- flights %&amp;gt;% select (year:day, hour, origin, dest, tailnum, carrier)
-flights2 %&amp;gt;% left_join(airlines)
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;flights2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tailnum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carrier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left_join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;airlines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Arguments&lt;/strong&gt;: besides &lt;strong&gt;x&lt;/strong&gt; and &lt;strong&gt;y&lt;/strong&gt; (tables), there is also &lt;strong&gt;by&lt;/strong&gt; argument that controls which variables are used to match observations in the two tables.&lt;/p&gt;
 
 &lt;table&gt;
@@ -226,7 +253,7 @@ flights2 %&amp;gt;% left_join(airlines)
     &lt;tr&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;by =&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;Code&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Comments&lt;/th&gt;
+      &lt;th&gt;Comments&lt;/th&gt;
       &lt;th&gt; &lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
@@ -234,25 +261,25 @@ flights2 %&amp;gt;% left_join(airlines)
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;by = NULL&lt;/code&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flights2 %&amp;gt;% left_join(weather)&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Natural join, dplyr uses varibles that appear in both tables&lt;/td&gt;
+      &lt;td&gt;Natural join, dplyr uses varibles that appear in both tables&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;by = &quot;x&quot;&lt;/code&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flights2 %&amp;gt;% left_join(planes, by = &quot;tailnum&quot;)&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Join by some common variables, specified in char vector “x”&lt;/td&gt;
+      &lt;td&gt;Join by some common variables, specified in char vector “x”&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;by = c(&quot;x&quot;=&quot;a&quot;)&lt;/code&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;flights2 %&amp;gt;% left_join(airports, c(&quot;dest&quot;=&quot;foo&quot;))&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Join by a named character vector. It will match variable x in table x to variable a in table b&lt;/td&gt;
+      &lt;td&gt;Join by a named character vector. It will match variable x in table x to variable a in table b&lt;/td&gt;
       &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id=&quot;types-of-joins&quot;&gt;Types of joins&lt;/h2&gt;
+&lt;h3 id=&quot;types-of-mutating-joins&quot;&gt;Types of mutating joins&lt;/h3&gt;
 &lt;p&gt;There are four types of joins that behave differently when a match is not found. Suppose we have two tables in our database, df1 and df2.&lt;/p&gt;
 
 &lt;table&gt;
@@ -464,8 +491,8 @@ of the matching observations.&lt;/p&gt;
 &lt;p&gt;Filtering joins match observations in the same way as mutating joins, but affect the observations, not variables. There are two kinds of such joins:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;semi_join(x, y) keeps all observations in x that have a match in y&lt;/li&gt;
-  &lt;li&gt;anti_join(x, y) drops all observations in x that have a match in y&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;semi_join(x, y)&lt;/strong&gt; keeps all observations in x that have a match in y&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;anti_join(x, y)&lt;/strong&gt; drops all observations in x that have a match in y&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
@@ -476,9 +503,9 @@ of the matching observations.&lt;/p&gt;
 &lt;p&gt;Set operations expect the x and y inputs to have the same variables and treat the observations as if they were sets.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;intersect(x, y) returns only observations in both x and y&lt;/li&gt;
-  &lt;li&gt;union(x, y) returns the unique observations in x and y&lt;/li&gt;
-  &lt;li&gt;setdiff(x, y) returns observations in x, but not in y&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;intersect(x, y)&lt;/strong&gt; returns only observations in both x and y&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;union(x, y)&lt;/strong&gt; returns the unique observations in x and y&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;setdiff(x, y)&lt;/strong&gt; returns observations in x, but not in y&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;r-to-sql-translation&quot;&gt;R to SQL translation&lt;/h2&gt;
@@ -486,50 +513,50 @@ of the matching observations.&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;R&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;SQL&lt;/th&gt;
+      &lt;th&gt;R&lt;/th&gt;
+      &lt;th&gt;SQL&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inner_join()&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x JOIN y ON x.a = y.a &lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inner_join()&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x JOIN y ON x.a = y.a &lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;left_join()&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x LEFT JOIN y ON x.a = y.a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;left_join()&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x LEFT JOIN y ON x.a = y.a&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;right_join()&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x RIGHT y ON x.a = y.a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;right_join()&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x RIGHT y ON x.a = y.a&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;full_join()&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x FULL y ON x.a = y.a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;full_join()&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x FULL y ON x.a = y.a&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;semi_join()&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;semi_join()&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT*FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;intersect(x, y)&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM x INTERSECT SELECT * FROM y&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;intersect(x, y)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM x INTERSECT SELECT * FROM y&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;union(x, y)&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UNION * FROM x INTERSECT SELECT * FROM y&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;union(x, y)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;UNION * FROM x INTERSECT SELECT * FROM y&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;setdiff(x, y)&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM x EXCEPT SELECT * FROM y&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;setdiff(x, y)&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT * FROM x EXCEPT SELECT * FROM y&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -540,24 +567,22 @@ of the matching observations.&lt;/p&gt;
 
 &lt;h1 id=&quot;laziness&quot;&gt;Laziness&lt;/h1&gt;
 
-&lt;p&gt;Dplyr is tryign to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it.
-Dplyr delays an ongoing task untill the last possible moment (it collects everything together and then sends it in one step).&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Dplyr&lt;/em&gt; is tryign to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it. &lt;em&gt;Dplyr&lt;/em&gt; delays an ongoing task until the last possible moment (it collects everything together and then sends it in one step).&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Example:&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;{r eval = FALSE}
-c1 &amp;lt;- filter(flights_sqlite, year == 2013, month == 1, day ==1)
-c2 &amp;lt;- select(c1, year, month, day, carrier, dep_delay, air_time, distance)
-c3 &amp;lt;- mutate(c2, speed = distance/air_time*60)
-c4&amp;lt;- arrange (c3, year, month, day, carrier)
-&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flights_sqlite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2013&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carrier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dep_delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;air_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mutate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;speed&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;air_time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arrange&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;carrier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This sequence of commands never touches the database. Not untill we ask for the data (for example, priting c4), that dplyr generates SQL
+&lt;p&gt;This sequence of commands never touches the database. Not until we ask for the data (for example, printing c4), that &lt;em&gt;dplyr&lt;/em&gt; generates SQL
 and requests the result. But even then it only pulls 10 rows.&lt;/p&gt;
 
-&lt;p&gt;To pull down ALL the results, use &lt;strong&gt;collect()&lt;/strong&gt; function, which returns a tbl_df(). We can check which query was generated: &lt;code class=&quot;highlighter-rouge&quot;&gt;c4$query&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To pull down ALL the results, use &lt;strong&gt;collect()&lt;/strong&gt; function, which returns a tbl_df(). We also can check which query was generated: &lt;code class=&quot;highlighter-rouge&quot;&gt;c4$query&lt;/code&gt;.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Forcing computation&lt;/p&gt;

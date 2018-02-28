@@ -10,7 +10,7 @@ var store = [{
         "url": "http://localhost:4000/website/update/linking-to-pdf-in-jekyll/",
         "teaser":"http://localhost:4000/assets/images/jekyll-logo.png"},{
         "title": "Working with databases in R: dplyr",
-        "excerpt":"On this page Introduction Establishing the connection Intorduction to dplyr package Grouped operations Types of joins Filtering joins Set operations R to SQL translation Laziness IntroductionIn this post I offer an overview of some handy tools for working with databasesin R: dplyr/ dbplyr packages.\\Dplyr is a fast, consistent tool for...","categories": ["R","tutorial"],
+        "excerpt":"On this page Introduction Establishing a connection Intorduction to dplyr package Single table verbs Grouped operations Chaining Two-table verbs Mutating joins Types of mutating joins Filtering joins Set operations R to SQL translation Laziness IntroductionIn this post I offer an overview of some handy tools for working with databasesin R:...","categories": ["R","tutorial"],
         "tags": ["R","Dplyr","Tutorial"],
         "url": "http://localhost:4000/r/tutorial/working-with-databases-in-R/",
         "teaser":"http://localhost:4000/assets/images/jekyll-logo.png"}]
