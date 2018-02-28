@@ -8,12 +8,10 @@ header:
   image: assets/images/banner.jpg
 ---
 
-Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running. [Download CV][1]
+Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running.
 
-[1]:{{belovanna.github.io}}/assets/_download/cv_HB.pdf
+<embed src="https://belovanna.github.io/cv_HB.pdf" type="application/pdf" />
 
-you can [get the PDF][2]
-[2]:{{site.url}}/assets/_download/cv_HB.pdf
 
 ### Education:
 - **University of Trento** (2011 - 2016)   
