@@ -8,7 +8,10 @@ header:
   image: assets/images/banner.jpg
 ---
 
-Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running.
+Hi! I'm a big fan of Mathematical Modeling, Statistics, and  Data Analysis.
+I like working in R (especially Tidyverse) and learning new techy things.
+My most recent discovery is Jekyll, which is responsible for this website being
+on and running.
 
 
 ### Education:
@@ -16,6 +19,3 @@ Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I l
   PhD Economics
 - **Lund University** (2008 - 2010)   
   MSc Economics
-
-
-### Research Interests:
