@@ -20,7 +20,10 @@ on and running.
 - **Lund University** (2008 - 2010)   
   MSc Economics
 
-
+<br>
+<br>
+<br>
+<br>
 # My posting activity
 
   <div id="calendar" style="margin:0 auto;">
@@ -30,7 +33,3 @@ on and running.
   		<a href="#" style="float:right;" id="cal-heatmap-NextDomain-selector"><i class="fa fa-chevron-right"></i></a>
   	</div>
   </div>
-
-#Places I visited
-
-{% google_map %}

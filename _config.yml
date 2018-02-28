@@ -60,6 +60,7 @@ algolia:
   search_only_api_key    : # YOUR_SEARCH_ONLY_API_KEY
   powered_by             : # true (default), false
 
+
 # SEO Related
 google_site_verification :
 bing_site_verification   : "0FC3FD70512616B052E755A56F8952D"
@@ -200,9 +201,6 @@ plugins:
   - jekyll-feed
   - jemoji
 
-gems:
-  - jekyll-maps
-
 # mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
@@ -263,9 +261,3 @@ defaults:
       share: true
       related: true
       noindex: false
-
-    maps:
-    google:
-      api_key: <AIzaSyCk6jQ3SJHtT6WAEIwNJFs_axNCYRuOjaY>
-
-github: [metadata]

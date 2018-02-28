@@ -17,4 +17,4 @@ header:
 
 [Kaggle profile](https://www.kaggle.com/anello)
 
-[Festival of Economics in Trento](https://2018.festivaleconomia.eu/english.html) (worth visiting)
+[Festival of Economics in Trento](https://2018.festivaleconomia.eu/english.html) (well worth a visit)
