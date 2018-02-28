@@ -1,0 +1,1182 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.10.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Working with databases in R: dplyr/dbplyr - Home</title>
+<meta name="description" content="Working with databases in R: dplyr/dbplyr packages">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Working with databases in R: dplyr/dbplyr">
+<meta property="og:url" content="http://localhost:4000/r/tutorial/working-with-databases-in-R/">
+
+
+  <meta property="og:description" content="Working with databases in R: dplyr/dbplyr packages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/banner.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-02-27T15:42:32+03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/r/tutorial/working-with-databases-in-R/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Anna Belova",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+  <meta name="msvalidate.01" content="0FC3FD70512616B052E755A56F8952D">
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Home Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://localhost:4000/">Home</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/About/" >About</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/Curriculum/" >CV</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/links/" >External Links</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/archive/" >Archive</a>
+            </li>
+          
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" "
+>
+  
+    <img src="http://localhost:4000/assets/images/banner.jpg" alt="Working with databases in R: dplyr/dbplyr" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="http://localhost:4000/assets/images/bio-photo.jpg" alt="Anna Belova" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Anna Belova</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Economics Ph.D, Data Enthusiast
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Belarus / Italy</span>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.kaggle.com/anello" itemprop="url">
+            <i class="fas fa-fw fa-link" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:anabelova@gmail.com">
+            <meta itemprop="email" content="anabelova@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/hanna-bialova-7375aa42" itemprop="sameAs">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/belovanna" itemprop="sameAs">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Working with databases in R: dplyr/dbplyr">
+    <meta itemprop="description" content="Working with databases in R: dplyr/dbplyr packages">
+    <meta itemprop="datePublished" content="February 27, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Working with databases in R: dplyr/dbplyr
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-cog"></i> On this page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#grouped-operations">Grouped operations</a></li>
+  <li><a href="#types-of-joins">Types of joins</a></li>
+  <li><a href="#filtering-joins">Filtering joins</a></li>
+  <li><a href="#set-operations">Set operations</a></li>
+  <li><a href="#r-to-sql-translation">R to SQL translation</a></li>
+</ul>
+            </nav>
+          </aside>
+        
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fas fa-cog"></i> On this page</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#establishing-the-connection" id="markdown-toc-establishing-the-connection">Establishing the connection</a></li>
+  <li><a href="#intorduction-to-dplyr-package" id="markdown-toc-intorduction-to-dplyr-package">Intorduction to dplyr package</a>    <ul>
+      <li><a href="#grouped-operations" id="markdown-toc-grouped-operations">Grouped operations</a></li>
+      <li><a href="#types-of-joins" id="markdown-toc-types-of-joins">Types of joins</a></li>
+      <li><a href="#filtering-joins" id="markdown-toc-filtering-joins">Filtering joins</a></li>
+      <li><a href="#set-operations" id="markdown-toc-set-operations">Set operations</a></li>
+      <li><a href="#r-to-sql-translation" id="markdown-toc-r-to-sql-translation">R to SQL translation</a></li>
+    </ul>
+  </li>
+  <li><a href="#laziness" id="markdown-toc-laziness">Laziness</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>In this draft I’ve made an overview of tools useful for working with databases using R: <em>dplyr</em>/<em>dbplyr</em> packages.
+This can be useful when working with big data. Loading it into R might be impossible, or slow down work and analysis. Instead, rather that loading the whole dataset
+to R, we can load only the data we’re interested in and work with subsets.</p>
+
+<center><img src="https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png" /></center>
+
+<p><em>Dplyr</em> is a fast, consistent tool for working with data frame like objects, both in memory and out of memory. Dplyr allows to interact with databases without any knowledge of SQL.<br />
+<em>Dbplyr</em> is a relatively new backend package which now contains all dplyr code related to connecting to databases. Now dplyr/dbplyr works much more directly
+with DBI database connections. This makes it much easier to switch between low-level queries written in SQL, and high-level data manipulation functions written with dplyr verbs.</p>
+
+<p><a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">More on dbplyr here</a></p>
+
+<p><a href="https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/" title="Rstudion blog">and here</a></p>
+
+<p>To use databases with dplyr, we also need to install <strong>dbplyr</strong>…</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"dbplyr"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="w">
+</span><span class="s1">'data.frame'</span><span class="o">:</span><span class="w">    </span><span class="m">891</span><span class="w"> </span><span class="n">obs.</span><span class="w"> </span><span class="n">of</span><span class="w">  </span><span class="m">12</span><span class="w"> </span><span class="n">variables</span><span class="o">:</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">PassengerId</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Survived</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Pclass</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Name</span><span class="w">       </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">891</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">"Abbing, Mr. Anthony"</span><span class="p">,</span><span class="n">..</span><span class="o">:</span><span class="w"> </span><span class="m">109</span><span class="w"> </span><span class="m">191</span><span class="w"> </span><span class="m">358</span><span class="w"> </span><span class="m">277</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">559</span><span class="w"> </span><span class="m">520</span><span class="w"> </span><span class="m">629</span><span class="w"> </span><span class="m">416</span><span class="w"> </span><span class="m">581</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Sex</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="s2">"male"</span><span class="o">:</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Age</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">num</span><span class="w">  </span><span class="m">22</span><span class="w"> </span><span class="m">38</span><span class="w"> </span><span class="m">26</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="kc">NA</span><span class="w"> </span><span class="m">54</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">SibSp</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Parch</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Ticket</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">681</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">"110152"</span><span class="p">,</span><span class="s2">"110413"</span><span class="p">,</span><span class="n">..</span><span class="o">:</span><span class="w"> </span><span class="m">525</span><span class="w"> </span><span class="m">596</span><span class="w"> </span><span class="m">662</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">473</span><span class="w"> </span><span class="m">276</span><span class="w"> </span><span class="m">86</span><span class="w"> </span><span class="m">396</span><span class="w"> </span><span class="m">345</span><span class="w"> </span><span class="m">133</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Fare</span><span class="w">       </span><span class="o">:</span><span class="w"> </span><span class="n">num</span><span class="w">  </span><span class="m">7.25</span><span class="w"> </span><span class="m">71.28</span><span class="w"> </span><span class="m">7.92</span><span class="w"> </span><span class="m">53.1</span><span class="w"> </span><span class="m">8.05</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Cabin</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">148</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="s2">"A10"</span><span class="p">,</span><span class="s2">"A14"</span><span class="p">,</span><span class="n">..</span><span class="o">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">83</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">57</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">131</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
+ </span><span class="o">$</span><span class="w"> </span><span class="n">Embarked</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="s2">"C"</span><span class="p">,</span><span class="s2">"Q"</span><span class="p">,</span><span class="s2">"S"</span><span class="o">:</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">...</span><span class="w">
+</span></code></pre></div></div>
+
+<p>…and a backend packages. The <strong>DBI</strong> backend package comes with dplyr automatically. <strong>DBI</strong> provides a common interface that allows dplyr to work with many
+different databases using the same code. But we you need to install a specific backend for the database that we want to connect to.</p>
+
+<p>Most commonly used backends are:</p>
+
+<ul>
+  <li>
+    <p><strong>RMySQL</strong> connects to MySQL and MariaDB</p>
+  </li>
+  <li>
+    <p><strong>RPostgreSQL</strong> connects to Postgres and Redshift.</p>
+  </li>
+  <li>
+    <p><strong>RSQLite</strong> embeds a SQLite database.</p>
+  </li>
+  <li>
+    <p><strong>odbc</strong> connects to many commercial databases via the open database connectivity protocol.</p>
+  </li>
+  <li>
+    <p><strong>bigrquery</strong> connects to Google’s BigQuery.</p>
+  </li>
+</ul>
+
+<h1 id="establishing-the-connection">Establishing the connection</h1>
+
+<p>As the first thing to do, we load dplyr and one of the backend packages we’ve chosen:
+```{r eval = FALSE, echo = TRUE, message = FALSE}
+library(dplyr)
+library(RMySQL)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Next, we should establish the connection with **DBI::dbConnect()**. The arguments to DBI::dbConnect() vary from database to database,
+but the first argument is always the database backend.
+
+```{r eval = FALSE}
+con &lt;- DBI::dbConnect(RMySQL::MySQL(), path = ":memory:")
+</code></pre></div></div>
+<p>It’s RSQLite::SQLite() for RSQLite, RMySQL::MySQL() for RMySQL, RPostgreSQL::PostgreSQL() for RPostgreSQL, odbc::odbc() for odbc,
+and bigrquery::bigquery() for BigQuery. SQLite only needs one other argument: the path to the database.
+Here we use the special string, “:memory:”, which causes SQLite to make a temporary in-memory database.</p>
+
+<p>Most existing databases live on another server. In real life the connection code will look more like this:</p>
+
+<p>```{r eval = FALSE}
+con &lt;- DBI::dbConnect(RMySQL::MySQL(),
+  host = “database.rstudio.com”,
+  user = “hadley”,
+  password = rstudioapi::askForPassword(“Database password”)
+)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+We can still continue to the old style src_mysql(), src_postgres(), and src_sqlite() functions, which still live in dplyr:
+
+```{r eval = FALSE}
+ConDplyr = src_mysql(dbname = "abc_api_efg_db", user = "annaBel", password ="mypass", host="sql.abc.com")
+</code></pre></div></div>
+<p><a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">More on dbplyr</a></p>
+
+<h1 id="intorduction-to-dplyr-package">Intorduction to dplyr package</h1>
+
+<p>Let’s try to see the functioning of dplyr package using nycflights13 dataset. Load the package, and see what’s in the table “flights”.
+```{r eval = FALSE, echo = TRUE, message = FALSE}
+library(nycflights13)
+data(package=”nycflights13”) #returns tables that are available in a dataset
+dim(flights) #size of a specific table
+head(flights, n=2) #head of a specific tables
+str(flights) #structure of a specific table</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Single table verbs
+Single table verbs are the commands for performing data manipulations within a single table of a dataset. Let's check the main fuctions.
+
+&gt;  Filtering certain rows of a dataframe can be done with the help of **filter** and **slice** functions. The first one helps to filter rows with certain
+characteristics (first month, first day, departure delay is 2). Whereas **slice** function picks rows by their position in a dataframe (pick rows from 1 to 5 in the example).
+
+```{r eval = FALSE}
+filter(flights, month==1, day==1, dep_delay==2)  #select a subset of rows
+</code></pre></div></div>
+
+<p>```{r eval = FALSE}
+slice(flights, 1:5)  #select rows by position</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&gt; Command **arrange** helps to sort information in a dataframe by fields. The first argument is always a dataframe name,
+then all the fields we want a DF to be arranged by. The second example arranges by arrival delay (in descending order).
+
+```{r eval = FALSE}
+arrange(dataframe name, field 1, field 2, ...)  #orders a dataframe by fields
+arrange(flights, year, month, day)
+arrange(flights, desc(arr_delay))
+</code></pre></div></div>
+
+<blockquote>
+  <p>In terms of working with columns, Dplyr allows up to pick columns, rename them, or modify the dataframe by creating/adding new columns.</p>
+</blockquote>
+
+<p><strong>select</strong> function allows rapidly subset the columns we’re interested in. This function can be used in a combination
+with a number of helper functions: <strong>starts_with()</strong>, <strong>ends_with()</strong>, <strong>matches()</strong>, <strong>contains()</strong>.</p>
+
+<p>```{r eval = FALSE}
+select(dataframe name, col name 1, col name 2, …)  #orders a dataframe by fields
+select(flights, year: day) #select columns between year and day
+select(flights, -(year:day)) #select except columns between year and day</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>One can also use **select()** to rename columns `select(flights, tail_num= tailnumber)`. But better use **rename()** function:
+
+```{r eval = FALSE}
+rename(flights, tail_num=tailnumber) #renames columns without dropping
+</code></pre></div></div>
+<p>We can also modify our dataframe by adding new columns that are functions of the existing columns with the help of <strong>mutate()</strong> and
+<strong>transmutate()</strong> functions. The latter one is used if we only want to keep new variables.</p>
+
+<p>```{r eval = FALSE}
+mutate(flights, gain=arr_delay-dep_delay, speed=distance/air_time*60) #renames columns without dropping</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&gt; Other two handy functions to work with a single table are **dictinct()** and **summarize()**:
+
+```{r eval = FALSE}
+distinct(flights, tailnum) #finds unique values in a table
+distinct(flights, origin, dest)
+</code></pre></div></div>
+
+<p><strong>Summarize()</strong> is used with affregate functions (i.e. min, max, mean,…). Dplyr also provides some special functions:
+``` {r eval = FALSE}
+n(x) #the number of observations in each group
+n_distinct(x) #the number of unique values in x
+first(x), last(x) and nth(x,n)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+```{r eval = FALSE}
+summarize(flights, delay = mean(dep_delay, na.rm = TRUE)) #collapses the data into a single variable
+</code></pre></div></div>
+
+<blockquote>
+  <p><em>OBSERVATIONS</em>:</p>
+  <ol>
+    <li>Syntaxis of all the verbs is always the same:
+      <ul>
+        <li>the first argument is always a dataframe name</li>
+        <li>next you describe what you do with a dataframe</li>
+        <li>the result is a new dataframe</li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<h2 id="grouped-operations">Grouped operations</h2>
+
+<blockquote>
+  <p>Function <strong>group_by()</strong> breaks down a dataset into specific groups of rows. Next, when we apply the verbs above on the resulting object, they’ll be
+automatically applied “by group”. For example, the following code first creates grouping by destination. Then calculates the numbers of planes and
+flights for each group.</p>
+</blockquote>
+
+<p>``` {r eval = FALSE}
+destinations&lt;- group_by(flights, dest)
+summarize(destinations,
+          planes = n_distinct(tailnum),
+          flights = n ()
+          )</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Chaining
+
+A chaining operator **%&gt;%** takes the output from one function and feeds it to the first argument of the next function (turns `x%&gt;%f(y)` into `f(x,y)`.
+It might seem confusing at the first glance, but gets more clear when looking at an example:
+
+| Wrapping functions                                 | Chaining equivalent                              |
+| :------------------------------------------------: |:------------------------------------------------:|
+| `filter(` &lt;br&gt; `summarize(`&lt;br&gt; `select(`&lt;br&gt;`group_by(flights, year, month, day),`&lt;br&gt; `arr_delay, dep_delay),`&lt;br&gt;`arr=mean(arr_delay, na.rm=TRUE),`&lt;br&gt;`dep=mean(dep_delay, na.rm=TRUE)`&lt;br&gt;`),`&lt;br&gt;`arr&gt;30 | dep&gt;30`&lt;br&gt;`)` |  `flights %&gt;%`&lt;br&gt; `group_by(year,month,day)%&gt;%`&lt;br&gt;`select(arr_delay,dep_delay)%&gt;%`&lt;br&gt;`summarize(`&lt;br&gt;`arr=mean(arr_delay, na.rm = TRUE),`&lt;br&gt;`dep=mean(dep_delay, na.rm = TRUE)`&lt;br&gt;`)%&gt;%`&lt;br&gt;`filter(arr&gt;30|dep&gt;30)`
+
+#Two-table verbs
+In practice we normaly have many tables that contribute to the analysis, and we need tools to use them all together. In **dplyr** there're two families of verbs
+that work with two tables at a time:
+
+* Mutating joins (to add new fariables to one table from matching rows in another)
+
+* Filtering joins (filter observations from one table based on whether or not they match an observation in another table)
+
+* Set operations (combine the observations in the datasets, as if they were set elements)
+
+## Mutating joins
+
+Allow to combine variables from multiple tables.
+
+&gt; For example, *nyflights13* dataset contains one table with flight info, and another table with mapping between abbreviations and full names. We can use
+join to ass the carrier names to the flight data:
+
+```{r eval = FALSE}
+flights2 &lt;- flights %&gt;% select (year:day, hour, origin, dest, tailnum, carrier)
+flights2 %&gt;% left_join(airlines)
+
+</code></pre></div></div>
+<p><strong>Arguments</strong>: besides <strong>x</strong> and <strong>y</strong> (tables), there is also <strong>by</strong> argument that controls which variables are used to match observations in the two tables.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">by =</th>
+      <th style="text-align: center">Code</th>
+      <th style="text-align: center">Comments</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">by = NULL</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">flights2 %&gt;% left_join(weather)</code></td>
+      <td style="text-align: center">Natural join, dplyr uses varibles that appear in both tables</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">by = "x"</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">flights2 %&gt;% left_join(planes, by = "tailnum")</code></td>
+      <td style="text-align: center">Join by some common variables, specified in char vector “x”</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">by = c("x"="a")</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">flights2 %&gt;% left_join(airports, c("dest"="foo"))</code></td>
+      <td style="text-align: center">Join by a named character vector. It will match variable x in table x to variable a in table b</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="types-of-joins">Types of joins</h2>
+<p>There are four types of joins that behave differently when a match is not found. Suppose we have two tables in our database, df1 and df2.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: df1</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: df2</p>
+
+<blockquote>
+  <p><strong>Inner_join(x,y)</strong> only includes observations that are both in x and y. <code class="highlighter-rouge">df1 %&gt;% inner_join(df2)</code> results in:</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">y</th>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: inner_join</p>
+
+<blockquote>
+  <p><strong>Left_join(x,y)</strong> only includes all observations in x, regardless of whether they match or not. This is the most commonly used join, since it ensures
+that no data is lost from the primary table. <code class="highlighter-rouge">df1 %&gt;% left_join(df2)</code> produces:</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">y</th>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">NA</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: left_join</p>
+
+<blockquote>
+  <p><strong>Right_join(x,y)</strong> only includes all observations of y. In a way, it’s equivalent to left_join, but the columns will be ordered differently.
+<code class="highlighter-rouge">df1 %&gt;% right_join(df2)</code> returns:</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">y</th>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: right_join</p>
+
+<p>Compare it to <code class="highlighter-rouge">df2 %&gt;% left_join(df1)</code>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+      <th style="text-align: center">y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+      <td style="text-align: center">NA</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: left_join(df2, df1)</p>
+
+<blockquote>
+  <p><strong>Full_join(x,y)</strong> only includes all observations from x and y. <code class="highlighter-rouge">df1 %&gt;% full_join(df2)</code> gives:</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">x</th>
+      <th style="text-align: center">y</th>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">NA</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">NA</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">a</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: full_join</p>
+
+<blockquote>
+  <p><strong>Note:</strong> if the match is not unique, each of these joins (mutating) will add all possible combinations (the cartesian product)
+of the matching observations.</p>
+</blockquote>
+
+<h2 id="filtering-joins">Filtering joins</h2>
+<p>Filtering joins match observations in the same way as mutating joins, but affect the observations, not variables. There are two kinds of such joins:</p>
+
+<ul>
+  <li>semi_join(x, y) keeps all observations in x that have a match in y</li>
+  <li>anti_join(x, y) drops all observations in x that have a match in y</li>
+</ul>
+
+<blockquote>
+  <p><strong>Note:</strong>  If you’re worried about what observations your joins produce, start with a semi_ or anti_join, They never duplicate, only remove observations.</p>
+</blockquote>
+
+<h2 id="set-operations">Set operations</h2>
+<p>Set operations expect the x and y inputs to have the same variables and treat the observations as if they were sets.</p>
+
+<ul>
+  <li>intersect(x, y) returns only observations in both x and y</li>
+  <li>union(x, y) returns the unique observations in x and y</li>
+  <li>setdiff(x, y) returns observations in x, but not in y</li>
+</ul>
+
+<h2 id="r-to-sql-translation">R to SQL translation</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">R</th>
+      <th style="text-align: center">SQL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">inner_join()</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x JOIN y ON x.a = y.a </code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">left_join()</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x LEFT JOIN y ON x.a = y.a</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">right_join()</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x RIGHT y ON x.a = y.a</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">full_join()</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x FULL y ON x.a = y.a</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">semi_join()</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT*FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">intersect(x, y)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT * FROM x INTERSECT SELECT * FROM y</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">union(x, y)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">UNION * FROM x INTERSECT SELECT * FROM y</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">setdiff(x, y)</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">SELECT * FROM x EXCEPT SELECT * FROM y</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There’s a function <strong>translate_sql()</strong> in dplyr package that allows translation of an expression to SQL:</p>
+
+<p><a href="http://dbplyr.tidyverse.org/reference/translate_sql.html" title="tidyverse page">Check here</a></p>
+
+<h1 id="laziness">Laziness</h1>
+
+<p>Dplyr is tryign to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it.
+Dplyr delays an ongoing task untill the last possible moment (it collects everything together and then sends it in one step).</p>
+
+<blockquote>
+  <p>Example:</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">{r eval = FALSE}
+c1 &lt;- filter(flights_sqlite, year == 2013, month == 1, day ==1)
+c2 &lt;- select(c1, year, month, day, carrier, dep_delay, air_time, distance)
+c3 &lt;- mutate(c2, speed = distance/air_time*60)
+c4&lt;- arrange (c3, year, month, day, carrier)
+</code></p>
+
+<p>This sequence of commands never touches the database. Not untill we ask for the data (for example, priting c4), that dplyr generates SQL
+and requests the result. But even then it only pulls 10 rows.</p>
+
+<p>To pull down ALL the results, use <strong>collect()</strong> function, which returns a tbl_df(). We can check which query was generated: <code class="highlighter-rouge">c4$query</code>.</p>
+
+<blockquote>
+  <p>Forcing computation</p>
+</blockquote>
+
+<ul>
+  <li><strong>collect()</strong> executes the query and returns the result to R</li>
+  <li><strong>compute()</strong> executes the query and stores temo table in the database</li>
+  <li><strong>collapse()</strong> turns the query into a table expression</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#dplyr" class="page__taxonomy-item" rel="tag">Dplyr</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#r" class="page__taxonomy-item" rel="tag">R</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#tutorial" class="page__taxonomy-item" rel="tag">Tutorial</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/categories/#r" class="page__taxonomy-item" rel="tag">R</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/categories/#tutorial" class="page__taxonomy-item" rel="tag">tutorial</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-02-27T15:42:32+03:00">February 27, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Working+with+databases+in+R%3A+dplyr%2Fdbplyr%20http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/" class="pagination--pager" title="Linking to a Pdf in Jekyll
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://localhost:4000/assets/images/jekyll-logo.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/" rel="permalink">Linking to a Pdf in Jekyll
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll.
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://localhost:4000/assets/images/default-header.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/website/update/welcome-to-jekyll/" rel="permalink">Getting started!
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different wa...</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="https://github.com/belovanna"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Anna Belova. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://localhost:4000/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+
+
+
+<script src="http://localhost:4000/assets/js/lunr/lunr.min.js"></script>
+<script src="http://localhost:4000/assets/js/lunr/lunr-store.js"></script>
+<script src="http://localhost:4000/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+  </body>
+</html>

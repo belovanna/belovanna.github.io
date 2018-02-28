@@ -3,7 +3,7 @@ layout: single
 title: "CV"
 sitemap: false
 permalink: /Curriculum/
-author_profile: false
+author_profile: TRUE
 header:
   image: assets/images/banner.jpg
 ---

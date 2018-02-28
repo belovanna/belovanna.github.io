@@ -7,6 +7,7 @@ tags:
   - website
   - Jekyll
 categories: website update
+classes: wide
 header:
   image: /assets/images/banner.jpg
   teaser: /assets/images/jekyll-logo.png
@@ -14,7 +15,7 @@ header:
 To make a pdf downloadable directly, place your pdf where you want it to be,
 say assets folder. Insert the code below anywhere on your page. Voilà,
 {% highlight markdown %}
-you can [download the pdf]({{ site.url }}/assets/mydoc.pdf) here.
+you can [download pdf]({{ site.url }}/assets/mydoc.pdf) here.
 {% endhighlight %}
 
 An alternative is to have your pdf displayed on a Github webpage along with
