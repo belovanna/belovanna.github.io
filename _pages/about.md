@@ -13,8 +13,6 @@ I like working in R (especially Tidyverse) and learning new techy things.
 My most recent discovery is Jekyll, which is responsible for this website being
 on and running.
 
-you can [get the PDF]({{ site.url }}/assets/download/cv_HB.pdf) directly.
-
 
 ### Education:
 - **University of Trento** (2011 - 2016)   

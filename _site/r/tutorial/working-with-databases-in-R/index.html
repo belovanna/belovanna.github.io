@@ -9,19 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Working with databases in R: dplyr/dbplyr - Home</title>
-<meta name="description" content="Working with databases in R: dplyr/dbplyr packages">
+<!-- begin _includes/seo.html --><title>Working with databases in R: dplyr - Home</title>
+<meta name="description" content="In this post I give an overview of some handy tools for working with databases in R: dplyr package.">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Home">
-<meta property="og:title" content="Working with databases in R: dplyr/dbplyr">
+<meta property="og:title" content="Working with databases in R: dplyr">
 <meta property="og:url" content="http://localhost:4000/r/tutorial/working-with-databases-in-R/">
 
 
-  <meta property="og:description" content="Working with databases in R: dplyr/dbplyr packages">
+  <meta property="og:description" content="In this post I give an overview of some handy tools for working with databases in R: dplyr package.">
 
 
 
@@ -178,7 +178,7 @@
   style=" "
 >
   
-    <img src="http://localhost:4000/assets/images/banner.jpg" alt="Working with databases in R: dplyr/dbplyr" class="page__hero-image">
+    <img src="http://localhost:4000/assets/images/banner.jpg" alt="Working with databases in R: dplyr" class="page__hero-image">
   
   
 </div>
@@ -316,15 +316,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Working with databases in R: dplyr/dbplyr">
-    <meta itemprop="description" content="Working with databases in R: dplyr/dbplyr packages">
+    <meta itemprop="headline" content="Working with databases in R: dplyr">
+    <meta itemprop="description" content="In this post I give an overview of some handy tools for working with databases in R: dplyr package.">
     <meta itemprop="datePublished" content="February 27, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 class="page__title" itemprop="headline">Working with databases in R: dplyr/dbplyr
+          <h1 class="page__title" itemprop="headline">Working with databases in R: dplyr
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -332,7 +332,7 @@
 
 
 
-  11 minute read
+  9 minute read
 </p>
           
         </header>
@@ -375,38 +375,20 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>In this draft I’ve made an overview of tools useful for working with databases using R: <em>dplyr</em>/<em>dbplyr</em> packages.
-This can be useful when working with big data. Loading it into R might be impossible, or slow down work and analysis. Instead, rather that loading the whole dataset
-to R, we can load only the data we’re interested in and work with subsets.</p>
+<p>In this post I offer an overview of some handy tools for working with databases
+in R: <em>dplyr</em>/ <em>dbplyr</em> packages.\</p>
+
+<p><em>Dplyr</em> is a fast, consistent tool for working with dataframe like objects, both
+in memory and out of memory. When working with big data, loading it into R might be impossible, or can substantially slow down the analysis. Instead, <em>dplyr</em> gives an option of handling all the data manipulations remotely, and then pulling only the resulting subset. The subset we’re interested in.
+Moreover, dplyr allows to interact with databases without using SQL, taking the role of a translator.</p>
 
 <center><img src="https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png" /></center>
 
-<p><em>Dplyr</em> is a fast, consistent tool for working with data frame like objects, both in memory and out of memory. Dplyr allows to interact with databases without any knowledge of SQL.<br />
-<em>Dbplyr</em> is a relatively new backend package which now contains all dplyr code related to connecting to databases. Now dplyr/dbplyr works much more directly
-with DBI database connections. This makes it much easier to switch between low-level queries written in SQL, and high-level data manipulation functions written with dplyr verbs.</p>
+<p>To use databases with <em>dplyr</em>, we also need to install <em>dbplyr</em>…\</p>
 
-<p><a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">More on dbplyr here</a></p>
-
-<p><a href="https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/" title="Rstudion blog">and here</a></p>
-
-<p>To use databases with dplyr, we also need to install <strong>dbplyr</strong>…</p>
+<p>(It’s is a relatively recent backend package which now contains all the dplyr code related to connecting to databases. More on <em>dbplyr</em> <a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">here</a> and <a href="https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/" title="Rstudion blog">here</a>)</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"dbplyr"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">train</span><span class="p">)</span><span class="w">
-</span><span class="s1">'data.frame'</span><span class="o">:</span><span class="w">    </span><span class="m">891</span><span class="w"> </span><span class="n">obs.</span><span class="w"> </span><span class="n">of</span><span class="w">  </span><span class="m">12</span><span class="w"> </span><span class="n">variables</span><span class="o">:</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">PassengerId</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Survived</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Pclass</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Name</span><span class="w">       </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">891</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">"Abbing, Mr. Anthony"</span><span class="p">,</span><span class="n">..</span><span class="o">:</span><span class="w"> </span><span class="m">109</span><span class="w"> </span><span class="m">191</span><span class="w"> </span><span class="m">358</span><span class="w"> </span><span class="m">277</span><span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">559</span><span class="w"> </span><span class="m">520</span><span class="w"> </span><span class="m">629</span><span class="w"> </span><span class="m">416</span><span class="w"> </span><span class="m">581</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Sex</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="s2">"male"</span><span class="o">:</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Age</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">num</span><span class="w">  </span><span class="m">22</span><span class="w"> </span><span class="m">38</span><span class="w"> </span><span class="m">26</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="m">35</span><span class="w"> </span><span class="kc">NA</span><span class="w"> </span><span class="m">54</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">SibSp</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Parch</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w">  </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Ticket</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">681</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">"110152"</span><span class="p">,</span><span class="s2">"110413"</span><span class="p">,</span><span class="n">..</span><span class="o">:</span><span class="w"> </span><span class="m">525</span><span class="w"> </span><span class="m">596</span><span class="w"> </span><span class="m">662</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">473</span><span class="w"> </span><span class="m">276</span><span class="w"> </span><span class="m">86</span><span class="w"> </span><span class="m">396</span><span class="w"> </span><span class="m">345</span><span class="w"> </span><span class="m">133</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Fare</span><span class="w">       </span><span class="o">:</span><span class="w"> </span><span class="n">num</span><span class="w">  </span><span class="m">7.25</span><span class="w"> </span><span class="m">71.28</span><span class="w"> </span><span class="m">7.92</span><span class="w"> </span><span class="m">53.1</span><span class="w"> </span><span class="m">8.05</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Cabin</span><span class="w">      </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">148</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="s2">"A10"</span><span class="p">,</span><span class="s2">"A14"</span><span class="p">,</span><span class="n">..</span><span class="o">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">83</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">57</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">131</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">...</span><span class="w">
- </span><span class="o">$</span><span class="w"> </span><span class="n">Embarked</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="n">Factor</span><span class="w"> </span><span class="n">w</span><span class="o">/</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="s2">"C"</span><span class="p">,</span><span class="s2">"Q"</span><span class="p">,</span><span class="s2">"S"</span><span class="o">:</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="n">...</span><span class="w">
 </span></code></pre></div></div>
 
 <p>…and a backend packages. The <strong>DBI</strong> backend package comes with dplyr automatically. <strong>DBI</strong> provides a common interface that allows dplyr to work with many
@@ -1010,7 +992,7 @@ and requests the result. But even then it only pulls 10 rows.</p>
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Working+with+databases+in+R%3A+dplyr%2Fdbplyr%20http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Working+with+databases+in+R%3A+dplyr%20http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fr%2Ftutorial%2Fworking-with-databases-in-R%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -1072,7 +1054,7 @@ and requests the result. But even then it only pulls 10 rows.</p>
   less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll.
+    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll: downloadable and embedded.
 </p>
   </article>
 </div>

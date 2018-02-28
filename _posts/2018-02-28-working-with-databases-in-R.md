@@ -1,7 +1,8 @@
 ---
 layout: single
-title:  "Working with databases in R: dplyr/dbplyr"
-excerpt: "Working with databases in R: dplyr/dbplyr packages"
+title:  "Working with databases in R: dplyr"
+excerpt: "In this post I give an overview of some handy tools for working with databases
+in R: *dplyr* package."
 date:   2018-02-27 15:42:32 +0300
 toc: TRUE
 toc_label: "On this page"
@@ -19,42 +20,22 @@ header:
 
 # Introduction
 
-In this draft I've made an overview of tools useful for working with databases using R: *dplyr*/*dbplyr* packages.
-This can be useful when working with big data. Loading it into R might be impossible, or slow down work and analysis. Instead, rather that loading the whole dataset
-to R, we can load only the data we're interested in and work with subsets.
+In this post I offer an overview of some handy tools for working with databases
+in R: *dplyr*/ *dbplyr* packages.\\
+
+*Dplyr* is a fast, consistent tool for working with dataframe like objects, both
+in memory and out of memory. When working with big data, loading it into R might be impossible, or can substantially slow down the analysis. Instead, *dplyr* gives an option of handling all the data manipulations remotely, and then pulling only the resulting subset. The subset we're interested in.
+Moreover, dplyr allows to interact with databases without using SQL, taking the role of a translator.
 
 <center><img src="https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png"></center>
 
-*Dplyr* is a fast, consistent tool for working with data frame like objects, both in memory and out of memory. Dplyr allows to interact with databases without any knowledge of SQL.  
-*Dbplyr* is a relatively new backend package which now contains all dplyr code related to connecting to databases. Now dplyr/dbplyr works much more directly
-with DBI database connections. This makes it much easier to switch between low-level queries written in SQL, and high-level data manipulation functions written with dplyr verbs.
+To use databases with *dplyr*, we also need to install *dbplyr*...\\
 
-[More on dbplyr here](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html "Cran Page")
-
-[and here](https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/ "Rstudion blog")
-
-
-To use databases with dplyr, we also need to install **dbplyr**...
+(It's is a relatively recent backend package which now contains all the dplyr code related to connecting to databases. More on *dbplyr* [here](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html "Cran Page") and [here](https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/ "Rstudion blog"))
 
 ```r
 install.packages("dbplyr")
 ```
-```r
-> str(train)
-'data.frame':    891 obs. of  12 variables:
- $ PassengerId: int  1 2 3 4 5 6 7 8 9 10 ...
- $ Survived   : int  0 1 1 1 0 0 0 0 1 1 ...
- $ Pclass     : int  3 1 3 1 3 3 1 3 3 2 ...
- $ Name       : Factor w/ 891 levels "Abbing, Mr. Anthony",..: 109 191 358 277 16 559 520 629 416 581 ...
- $ Sex        : Factor w/ 2 levels "female","male": 2 1 1 1 2 2 2 2 1 1 ...
- $ Age        : num  22 38 26 35 35 NA 54 2 27 14 ...
- $ SibSp      : int  1 1 0 1 0 0 0 3 0 1 ...
- $ Parch      : int  0 0 0 0 0 0 0 1 2 0 ...
- $ Ticket     : Factor w/ 681 levels "110152","110413",..: 525 596 662 50 473 276 86 396 345 133 ...
- $ Fare       : num  7.25 71.28 7.92 53.1 8.05 ...
- $ Cabin      : Factor w/ 148 levels "","A10","A14",..: 1 83 1 57 1 1 131 1 1 1 ...
- $ Embarked   : Factor w/ 4 levels "","C","Q","S": 4 2 4 4 4 3 4 4 4 2 ...
- ```
 
 ...and a backend packages. The **DBI** backend package comes with dplyr automatically. **DBI** provides a common interface that allows dplyr to work with many
 different databases using the same code. But we you need to install a specific backend for the database that we want to connect to.

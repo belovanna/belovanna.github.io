@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "CV"
+title: "Curriculum Vitae"
 sitemap: false
 permalink: /Curriculum/
 author_profile: TRUE

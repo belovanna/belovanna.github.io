@@ -43,10 +43,11 @@
 <loc>http://localhost:4000/archive/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/_pages/splash-page/</loc>
-</url>
-<url>
 <loc>http://localhost:4000/assets/download/cv_HB.pdf</loc>
 <lastmod>2018-02-28T12:49:15+03:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/assets/download/sample.pdf</loc>
+<lastmod>2018-02-28T17:16:14+03:00</lastmod>
 </url>
 </urlset>
