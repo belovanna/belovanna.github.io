@@ -14,7 +14,6 @@ tags:
 categories: R tutorial
 header:
   image: /assets/images/banner.jpg
-  teaser: /assets/images/jekyll-logo.png
 ---
 {% include toc icon="cog" title="On this page" %}
 
