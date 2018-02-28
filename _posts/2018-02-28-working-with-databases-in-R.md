@@ -9,8 +9,8 @@ toc_label: "On this page"
 toc_icon: "cog"
 tags:
   - R
-  - Dplyr
-  - Tutorial
+  - dplyr
+  - tutorial
 categories: R tutorial
 header:
   image: /assets/images/banner.jpg
