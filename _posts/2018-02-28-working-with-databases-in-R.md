@@ -25,11 +25,11 @@ in R: *dplyr*/ *dbplyr* packages.
 
 *Dplyr* is a fast, consistent tool for working with dataframe like objects, both
 in memory and out of memory. When working with big data, loading it into R might be impossible, or can substantially slow down the analysis. Instead, *dplyr* gives an option of handling all the data manipulations remotely, and then pulling only the resulting subset. The subset we're interested in.
-Moreover, dplyr allows to interact with databases without using SQL, taking the role of a translator.
+Moreover, dplyr allows to interact with databases without using SQL, acting as a translator.
 
 <center><img src="https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png"></center>
 
-To use databases with *dplyr*, we also need to install *dbplyr*. It's is a
+To use databases with *dplyr*, we need to install *dbplyr*. It's is a
 relatively recent backend package which now contains all the dplyr code related
 to connecting to databases. More on *dbplyr* [here](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html "Cran Page") and [here](https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/ "Rstudion blog"))
 
