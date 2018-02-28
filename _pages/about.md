@@ -12,7 +12,8 @@ Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I l
 
 [1]:{{belovanna.github.io}}/assets/_download/cv_HB.pdf
 
-you can [get the PDF]({{ site.url }}/assets/_download/cv_HB.pdf) directly.
+you can [get the PDF][2]
+[2]:{{site.url}}/assets/_download/cv_HB.pdf
 
 ### Education:
 - **University of Trento** (2011 - 2016)   
