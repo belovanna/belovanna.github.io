@@ -13,4 +13,4 @@ var store = [{
         "excerpt":"On this page Introduction Establishing a connection Intorduction to dplyr package Single table verbs Grouped operations Chaining Two-table verbs Mutating joins Types of mutating joins Filtering joins Set operations R to SQL translation Laziness IntroductionIn this post I offer an overview of some handy tools for working with databasesin R:...","categories": ["R","tutorial"],
         "tags": ["R","Dplyr","Tutorial"],
         "url": "http://localhost:4000/r/tutorial/working-with-databases-in-R/",
-        "teaser":"http://localhost:4000/assets/images/jekyll-logo.png"}]
+        "teaser":"http://localhost:4000/assets/images/default-header.jpg"}]
