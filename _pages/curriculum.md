@@ -1,6 +1,6 @@
 ---
 title: "CV"
-layout: single
+layout: default
 sitemap: false
 permalink: /Curriculum/
 ---
