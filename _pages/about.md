@@ -10,7 +10,7 @@ header:
 
 Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I like working in R (especially fond of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running. [Download CV][1]
 
-[1]:{{ /_download/cv_HB.pdf}}/_download/cv_HB.pdf
+[1]:{{https://github.com/belovanna/belovanna.github.io/raw/master/_download/cv_HB.pdf}}/_download/cv_HB.pdf
 
 
 ### Education:
@@ -18,10 +18,6 @@ Hi! I'm a big fan of Mathematical Modelling, Statistics, and  Data Analysis. I l
   PhD Economics
 - **Lund University** (2008 - 2010)   
   MSc Economics
-
-  [Download CV][1]
-
-  [1]:{{ /_download/cv_HB.pdf}}/_download/cv_HB.pdf
 
 
 ### Research Interests:
