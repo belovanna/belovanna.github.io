@@ -20,7 +20,8 @@ header:
 # Introduction
 
 In this post I offer an overview of some handy tools for working with databases
-in R: *dplyr*/ *dbplyr* packages.\\
+in R: *dplyr*/ *dbplyr* packages.
+<br/>
 
 *Dplyr* is a fast, consistent tool for working with dataframe like objects, both
 in memory and out of memory. When working with big data, loading it into R might be impossible, or can substantially slow down the analysis. Instead, *dplyr* gives an option of handling all the data manipulations remotely, and then pulling only the resulting subset. The subset we're interested in.
