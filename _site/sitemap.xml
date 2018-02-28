@@ -5,6 +5,10 @@
 <lastmod>2018-02-27T15:42:32+03:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/website/update/linking-to-pdf-in-jekyll/</loc>
+<lastmod>2018-02-27T15:42:32+03:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/404/</loc>
 </url>
 <url>
@@ -38,7 +42,7 @@
 <loc>http://localhost:4000/_pages/splash-page/</loc>
 </url>
 <url>
-<loc>http://localhost:4000/cv_HB.pdf</loc>
-<lastmod>2018-02-28T12:03:35+03:00</lastmod>
+<loc>http://localhost:4000/assets/download/cv_HB.pdf</loc>
+<lastmod>2018-02-28T12:49:15+03:00</lastmod>
 </url>
 </urlset>

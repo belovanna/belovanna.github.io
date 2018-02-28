@@ -9,21 +9,23 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Getting started! - Home</title>
-<meta name="description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.">
+<!-- begin _includes/seo.html --><title>Linking to a Pdf in Jekyll - Home</title>
+<meta name="description" content="Linking to a Pdf in Jekyll.">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Home">
-<meta property="og:title" content="Getting started!">
-<meta property="og:url" content="http://localhost:4000/website/update/welcome-to-jekyll/">
+<meta property="og:title" content="Linking to a Pdf in Jekyll">
+<meta property="og:url" content="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/">
 
 
-  <meta property="og:description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.">
+  <meta property="og:description" content="Linking to a Pdf in Jekyll.">
 
 
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/banner.jpg">
 
 
 
@@ -40,7 +42,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/website/update/welcome-to-jekyll/">
+<link rel="canonical" href="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/">
 
 
 
@@ -160,6 +162,28 @@
 
     <div class="initial-content">
       
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" "
+>
+  
+    <img src="http://localhost:4000/assets/images/banner.jpg" alt="Linking to a Pdf in Jekyll" class="page__hero-image">
+  
+  
+</div>
+
+
 
 
 
@@ -292,15 +316,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Getting started!">
-    <meta itemprop="description" content="You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.">
+    <meta itemprop="headline" content="Linking to a Pdf in Jekyll">
+    <meta itemprop="description" content="Linking to a Pdf in Jekyll.">
     <meta itemprop="datePublished" content="February 27, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 class="page__title" itemprop="headline">Getting started!
+          <h1 class="page__title" itemprop="headline">Linking to a Pdf in Jekyll
 </h1>
           
             <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
@@ -316,19 +340,22 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+        <p>To make a pdf downloadable directly, place your pdf where you want it to be,
+say assets folder. Insert the code below anywhere on your page. Voilà,</p>
 
-<p>To add new posts, simply add a file in the <code class="highlighter-rouge">_posts</code> directory that follows the convention <code class="highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">you can <span class="p">[</span><span class="nv">download the pdf</span><span class="p">](</span><span class="sx">http://localhost:4000/assets/mydoc.pdf</span><span class="p">)</span> here.</code></pre></figure>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+<p>An alternative is to have your pdf displayed on a Github webpage along with
+other content (check my CV page).</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
+<ul>
+  <li>Make the static website/repository in Github: username.github.io</li>
+  <li>If you already have a website, create a new static page</li>
+  <li>Place your pdf where you want it to be (also root would do)</li>
+  <li>Embed your pdf file:</li>
+</ul>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><span class="nt">&lt;embed</span> <span class="na">src=</span><span class="s">"https://username.github.io/mydoc.pdf"</span> <span class="na">type=</span><span class="s">"application/pdf"</span><span class="nt">/&gt;</span></code></pre></figure>
 
 
         
@@ -337,6 +364,29 @@
       <footer class="page__meta">
         
         
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#jekyll" class="page__taxonomy-item" rel="tag">Jekyll</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#website" class="page__taxonomy-item" rel="tag">website</a>
+    
+    </span>
+  </p>
+
+
 
 
   
@@ -372,24 +422,24 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Getting+started%21%20http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Fwelcome-to-jekyll%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Linking+to+a+Pdf+in+Jekyll%20http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Flinking-to-pdf-in-jekyll%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Fwelcome-to-jekyll%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Flinking-to-pdf-in-jekyll%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Fwelcome-to-jekyll%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Flinking-to-pdf-in-jekyll%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Fwelcome-to-jekyll%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fupdate%2Flinking-to-pdf-in-jekyll%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">Previous</a>
+      <a href="http://localhost:4000/website/update/welcome-to-jekyll/" class="pagination--pager" title="Getting started!
+">Previous</a>
     
     
-      <a href="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/" class="pagination--pager" title="Linking to a Pdf in Jekyll
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
@@ -403,41 +453,6 @@
     <div class="page__related">
       <h4 class="page__related-title">You May Also Enjoy</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-      <div class="archive__item-teaser">
-        <img src=
-          
-            "http://localhost:4000/assets/images/jekyll-logo.png"
-          
-          alt="">
-      </div>
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/" rel="permalink">Linking to a Pdf in Jekyll
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll.
-</p>
-  </article>
-</div>
         
           
 
@@ -475,6 +490,7 @@
         
       </div>
     </div>
+  
   
 </div>
 
