@@ -1,8 +1,8 @@
 var store = [{
-        "title": "Getting started!",
-        "excerpt":"To add new posts, simply add a file in the _posts directory that follows the convention YYYY-MM-DD-name-of-post.ext and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.","categories": ["website","update"],
-        "tags": [],
-        "url": "http://localhost:4000/website/update/welcome-to-jekyll/",
+        "title": "Hello, World!",
+        "excerpt":"Definition: “a “Hello, World!” program is a computer program that outputs or displays “Hello, World!” to a user. Being a very simple program in most programming languages, it is often used to illustrate the basic syntax of a programming language for a working program.[1] It is often the very first...","categories": ["website","update"],
+        "tags": ["-about","-website"],
+        "url": "http://localhost:4000/website/update/hello-world/",
         "teaser":"http://localhost:4000/assets/images/default-header.jpg"},{
         "title": "Linking to a Pdf in Jekyll",
         "excerpt":"On this page Downloadable files Embedded files Downloadable filesTo make a pdf downloadable directly, place your pdf where you want it to be,say assets folder. Insert the code below anywhere on your page. Voilà,you can [download pdf](http://localhost:4000/assets/mydoc.pdf) here.Get the pdfEmbedded filesAn alternative is to have your pdf displayed on a...","categories": ["website","update"],

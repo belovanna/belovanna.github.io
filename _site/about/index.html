@@ -365,7 +365,7 @@
       <section class="page__content" itemprop="text">
         
         <p>Hi! My background (and PhD) is in Economics and in particular Macroeconomic Modeling.
-But working as an Analyst for a Business Intelligence company, I became very excited about firm-level data as well. I have quite a bit of experience in data analysis and forecasting, revenue management, e-commerce systems, and developing analytics for BI software for Italian ski resorts. I like working in R (big fan of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being on and running.</p>
+But working as an Analyst for a Business Intelligence company, I became very excited about firm-level data as well. I have quite a bit of experience in data analysis and forecasting, revenue management, e-commerce systems, and developing analytics for BI software for Italian ski resorts. I like working in R (big fan of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being up and running.</p>
 
 <h3 id="education">Education:</h3>
 <ul>
@@ -435,9 +435,9 @@ MSc in Economics</li>
 <script type="text/javascript">
 
 var data = {
-"1519735352": 3
+"1519821752": 2,
+"1519752000": 1
 };
-
 
 var responsiveCal = function( options ) {
 	var now = new Date();
@@ -473,11 +473,18 @@ caloptions = {
 	subDomain: "x_day",
 	data: data,
 	dataType: "json",
+	legendColors: {
+		min: "#ecf5e2",
+		max: "#232181",
+		empty: "#f1f1f1",
+		base: "#f1f1f1"
+		// Will use the CSS for the missing keys
+	},
 	cellPadding: 5,
 	domainGutter: 20,
-	displayLegend: false,
+	displayLegend: true,
 	range: 4,
-	considerMissingDataAsZero:false,
+	considerMissingDataAsZero: false,
 	domainDynamicDimension: true,
 	previousSelector: "#cal-heatmap-PreviousDomain-selector",
 	nextSelector: "#cal-heatmap-NextDomain-selector",
@@ -486,12 +493,11 @@ caloptions = {
 		return moment(date).format("MMMM").toUpperCase();
 	},
 	subDomainTextFormat: "%d",
-	legend: [0,1,2,3],
+	legend: [1,2,3,4],
 	label: {
 		position: "top"
 	}
 };
-
 
 // run first time, put in load if your scripts are in footer
 responsiveCal( caloptions );
@@ -507,6 +513,7 @@ $(window).resize(function() {
 $(window).bind('resizeEnd', function() {
 	 responsiveCal( cal.options );
 });
+cal.setLegend()
 </script>
 
         <div class="page__footer-follow">

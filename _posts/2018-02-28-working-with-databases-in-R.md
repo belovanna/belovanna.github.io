@@ -3,7 +3,7 @@ layout: single
 title:  "Working with databases in R: dplyr"
 excerpt: "In this post I give an overview of some handy tools for working with databases
 in R: *dplyr*/*dbplyr* packages."
-date:   2018-02-27 15:42:32 +0300
+date:   2018-02-28 15:42:32 +0300
 toc: TRUE
 toc_label: "On this page"
 toc_icon: "cog"

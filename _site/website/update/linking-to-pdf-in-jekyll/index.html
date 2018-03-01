@@ -31,7 +31,7 @@
 
 
 
-  <meta property="article:published_time" content="2018-02-27T15:42:32+03:00">
+  <meta property="article:published_time" content="2018-02-28T15:42:32+03:00">
 
 
 
@@ -354,7 +354,7 @@
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Linking to a Pdf in Jekyll">
     <meta itemprop="description" content="Linking to a Pdf in Jekyll: downloadable and embedded files.">
-    <meta itemprop="datePublished" content="February 27, 2018">
+    <meta itemprop="datePublished" content="February 28, 2018">
     
 
     <div class="page__inner-wrap">
@@ -474,7 +474,7 @@ other content (check my CV page).</p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-02-27T15:42:32+03:00">February 27, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-02-28T15:42:32+03:00">February 28, 2018</time></p>
         
       </footer>
 
@@ -496,7 +496,7 @@ other content (check my CV page).</p>
       
   <nav class="pagination">
     
-      <a href="http://localhost:4000/website/update/welcome-to-jekyll/" class="pagination--pager" title="Getting started!
+      <a href="http://localhost:4000/website/update/hello-world/" class="pagination--pager" title="Hello, World!
 ">Previous</a>
     
     
@@ -568,7 +568,7 @@ other content (check my CV page).</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://localhost:4000/website/update/welcome-to-jekyll/" rel="permalink">Getting started!
+        <a href="http://localhost:4000/website/update/hello-world/" rel="permalink">Hello, World!
 </a>
       
     </h2>
@@ -578,10 +578,10 @@ other content (check my CV page).</p>
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Sample page
+    <p class="archive__item-excerpt" itemprop="description">Some thoughts about open access &amp; data analysis.
 </p>
   </article>
 </div>
@@ -609,9 +609,9 @@ other content (check my CV page).</p>
 <script type="text/javascript">
 
 var data = {
-"1519735352": 3
+"1519821752": 2,
+"1519752000": 1
 };
-
 
 var responsiveCal = function( options ) {
 	var now = new Date();
@@ -647,11 +647,18 @@ caloptions = {
 	subDomain: "x_day",
 	data: data,
 	dataType: "json",
+	legendColors: {
+		min: "#ecf5e2",
+		max: "#232181",
+		empty: "#f1f1f1",
+		base: "#f1f1f1"
+		// Will use the CSS for the missing keys
+	},
 	cellPadding: 5,
 	domainGutter: 20,
-	displayLegend: false,
+	displayLegend: true,
 	range: 4,
-	considerMissingDataAsZero:false,
+	considerMissingDataAsZero: false,
 	domainDynamicDimension: true,
 	previousSelector: "#cal-heatmap-PreviousDomain-selector",
 	nextSelector: "#cal-heatmap-NextDomain-selector",
@@ -660,12 +667,11 @@ caloptions = {
 		return moment(date).format("MMMM").toUpperCase();
 	},
 	subDomainTextFormat: "%d",
-	legend: [0,1,2,3],
+	legend: [1,2,3,4],
 	label: {
 		position: "top"
 	}
 };
-
 
 // run first time, put in load if your scripts are in footer
 responsiveCal( caloptions );
@@ -681,6 +687,7 @@ $(window).resize(function() {
 $(window).bind('resizeEnd', function() {
 	 responsiveCal( cal.options );
 });
+cal.setLegend()
 </script>
 
         <div class="page__footer-follow">

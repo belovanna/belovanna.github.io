@@ -2,14 +2,14 @@
 layout: single
 title:  "Linking to a Pdf in Jekyll"
 excerpt: "Linking to a Pdf in Jekyll: downloadable and embedded files."
-date:   2018-02-27 15:42:32 +0300
+date:   2018-02-28 15:42:32 +0300
+toc: TRUE
+toc_label: "On this page"
+toc_icon: "cog"
 tags:
   - website
   - Jekyll
 categories: website update
-toc: TRUE
-toc_label: "On this page"
-toc_icon: "cog"
 header:
   image: /assets/images/banner.jpg
   teaser: /assets/images/jekyll-logo.png

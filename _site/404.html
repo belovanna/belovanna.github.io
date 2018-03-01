@@ -268,9 +268,9 @@
 <script type="text/javascript">
 
 var data = {
-"1519735352": 3
+"1519821752": 2,
+"1519752000": 1
 };
-
 
 var responsiveCal = function( options ) {
 	var now = new Date();
@@ -306,11 +306,18 @@ caloptions = {
 	subDomain: "x_day",
 	data: data,
 	dataType: "json",
+	legendColors: {
+		min: "#ecf5e2",
+		max: "#232181",
+		empty: "#f1f1f1",
+		base: "#f1f1f1"
+		// Will use the CSS for the missing keys
+	},
 	cellPadding: 5,
 	domainGutter: 20,
-	displayLegend: false,
+	displayLegend: true,
 	range: 4,
-	considerMissingDataAsZero:false,
+	considerMissingDataAsZero: false,
 	domainDynamicDimension: true,
 	previousSelector: "#cal-heatmap-PreviousDomain-selector",
 	nextSelector: "#cal-heatmap-NextDomain-selector",
@@ -319,12 +326,11 @@ caloptions = {
 		return moment(date).format("MMMM").toUpperCase();
 	},
 	subDomainTextFormat: "%d",
-	legend: [0,1,2,3],
+	legend: [1,2,3,4],
 	label: {
 		position: "top"
 	}
 };
-
 
 // run first time, put in load if your scripts are in footer
 responsiveCal( caloptions );
@@ -340,6 +346,7 @@ $(window).resize(function() {
 $(window).bind('resizeEnd', function() {
 	 responsiveCal( cal.options );
 });
+cal.setLegend()
 </script>
 
         <div class="page__footer-follow">

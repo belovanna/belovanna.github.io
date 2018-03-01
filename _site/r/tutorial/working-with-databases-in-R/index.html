@@ -31,7 +31,7 @@
 
 
 
-  <meta property="article:published_time" content="2018-02-27T15:42:32+03:00">
+  <meta property="article:published_time" content="2018-02-28T15:42:32+03:00">
 
 
 
@@ -354,7 +354,7 @@
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Working with databases in R: dplyr">
     <meta itemprop="description" content="In this post I give an overview of some handy tools for working with databases in R: dplyr/dbplyr packages.">
-    <meta itemprop="datePublished" content="February 27, 2018">
+    <meta itemprop="datePublished" content="February 28, 2018">
     
 
     <div class="page__inner-wrap">
@@ -431,11 +431,11 @@ in R: <em>dplyr</em>/ <em>dbplyr</em> packages.
 
 <p><em>Dplyr</em> is a fast, consistent tool for working with dataframe like objects, both
 in memory and out of memory. When working with big data, loading it into R might be impossible, or can substantially slow down the analysis. Instead, <em>dplyr</em> gives an option of handling all the data manipulations remotely, and then pulling only the resulting subset. The subset we’re interested in.
-Moreover, dplyr allows to interact with databases without using SQL, taking the role of a translator.</p>
+Moreover, dplyr allows to interact with databases without using SQL, acting as a translator.</p>
 
 <center><img src="https://d33wubrfki0l68.cloudfront.net/738885c8f54f3ab6118545469c28cd6635fcd656/96e0d/homepage/interact.png" /></center>
 
-<p>To use databases with <em>dplyr</em>, we also need to install <em>dbplyr</em>. It’s is a
+<p>To use databases with <em>dplyr</em>, we need to install <em>dbplyr</em>. It’s is a
 relatively recent backend package which now contains all the dplyr code related
 to connecting to databases. More on <em>dbplyr</em> <a href="https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html" title="Cran Page">here</a> and <a href="https://blog.rstudio.com/2017/06/27/dbplyr-1-1-0/" title="Rstudion blog">here</a>)</p>
 
@@ -1051,7 +1051,7 @@ and requests the result. But even then it only pulls 10 rows.</p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-02-27T15:42:32+03:00">February 27, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-02-28T15:42:32+03:00">February 28, 2018</time></p>
         
       </footer>
 
@@ -1144,7 +1144,7 @@ and requests the result. But even then it only pulls 10 rows.</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://localhost:4000/website/update/welcome-to-jekyll/" rel="permalink">Getting started!
+        <a href="http://localhost:4000/website/update/hello-world/" rel="permalink">Hello, World!
 </a>
       
     </h2>
@@ -1154,10 +1154,10 @@ and requests the result. But even then it only pulls 10 rows.</p>
 
 
 
-  less than 1 minute read
+  1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Sample page
+    <p class="archive__item-excerpt" itemprop="description">Some thoughts about open access &amp; data analysis.
 </p>
   </article>
 </div>
@@ -1185,9 +1185,9 @@ and requests the result. But even then it only pulls 10 rows.</p>
 <script type="text/javascript">
 
 var data = {
-"1519735352": 3
+"1519821752": 2,
+"1519752000": 1
 };
-
 
 var responsiveCal = function( options ) {
 	var now = new Date();
@@ -1223,11 +1223,18 @@ caloptions = {
 	subDomain: "x_day",
 	data: data,
 	dataType: "json",
+	legendColors: {
+		min: "#ecf5e2",
+		max: "#232181",
+		empty: "#f1f1f1",
+		base: "#f1f1f1"
+		// Will use the CSS for the missing keys
+	},
 	cellPadding: 5,
 	domainGutter: 20,
-	displayLegend: false,
+	displayLegend: true,
 	range: 4,
-	considerMissingDataAsZero:false,
+	considerMissingDataAsZero: false,
 	domainDynamicDimension: true,
 	previousSelector: "#cal-heatmap-PreviousDomain-selector",
 	nextSelector: "#cal-heatmap-NextDomain-selector",
@@ -1236,12 +1243,11 @@ caloptions = {
 		return moment(date).format("MMMM").toUpperCase();
 	},
 	subDomainTextFormat: "%d",
-	legend: [0,1,2,3],
+	legend: [1,2,3,4],
 	label: {
 		position: "top"
 	}
 };
-
 
 // run first time, put in load if your scripts are in footer
 responsiveCal( caloptions );
@@ -1257,6 +1263,7 @@ $(window).resize(function() {
 $(window).bind('resizeEnd', function() {
 	 responsiveCal( cal.options );
 });
+cal.setLegend()
 </script>
 
         <div class="page__footer-follow">
