@@ -10,7 +10,7 @@ categories: website update
 header:
   image: /assets/images/banner.jpg
 ---
-> **Definition:** "a "Hello, World!" program is a computer program that outputs or displays "Hello, World!" to a user. Being a very simple program in most programming languages, it is often used to illustrate the basic syntax of a programming language for a working program.[1] It is often the very first program people write when they are new to a language". [source: Wikipedia](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program)
+> **Definition:** "a "Hello, World!" program is a computer program that outputs or displays "Hello, World!" to a user. Being a very simple program in most programming languages, it is often used to illustrate the basic syntax of a programming language for a working program. It is often the very first program people write when they are new to a language". [source: Wikipedia](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program)
 
 A couple of years ago, when I started researching for methodology for my new project at work, I began with reading academic articles on this topic. I've been taught so during my PhD. And this was one of the best lessons: "do not reinvent the wheel, see what others have done".  
 
