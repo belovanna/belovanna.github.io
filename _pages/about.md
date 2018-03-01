@@ -21,14 +21,13 @@ But working as an Analyst for a Business Intelligence company, I became very exc
 <br>
 <br>
 <br>
-### Research:
+### Research
 
 <br>
 <br>
 <br>
 <br>
-# My posting activity
-
+### Posting activity
   <div id="calendar" style="margin:0 auto;">
   	<div id="cal-heatmap"></div>
   	<div style="padding-top: 10px;">
