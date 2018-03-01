@@ -1,7 +1,7 @@
 var store = [{
         "title": "Hello, World!",
-        "excerpt":"Definition: “a “Hello, World!” program is a computer program that outputs or displays “Hello, World!” to a user. Being a very simple program in most programming languages, it is often used to illustrate the basic syntax of a programming language for a working program.[1] It is often the very first...","categories": ["website","update"],
-        "tags": ["-about","-website"],
+        "excerpt":"Definition: “a “Hello, World!” program is a computer program that outputs or displays “Hello, World!” to a user. Being a very simple program in most programming languages, it is often used to illustrate the basic syntax of a programming language for a working program. It is often the very first...","categories": ["website","update"],
+        "tags": ["about","website"],
         "url": "http://localhost:4000/website/update/hello-world/",
         "teaser":"http://localhost:4000/assets/images/default-header.jpg"},{
         "title": "Linking to a Pdf in Jekyll",
