@@ -118,7 +118,7 @@ print(len(rank), len(result), len(activetnw)) #check the length of the str
 It's clear, we're dealing with some missing values here. After a closer inspection, it turns out that
 the problem is caused by the anonymous entry #466:
 
-<center><image: /assets/images/webscraping/empty.png></center>
+![My helpful screenshot]({{ "/assets/images/webscraping/empty.png" }})
 
 Our parsing is ignoring empty entries in name, country and industry classes. This will mess up the
 dataset later on, unless we fix it.
@@ -142,6 +142,6 @@ However, the fix is really easy. We can modify our parsing code as follows:
 name = tree.xpath('//div[@class="table-cell t-name"]/a')
 name_res = [x.text if x.text else '' for x in name]
 ```
-Now checking the length of lists gives `500 500 500` and we can proceed with pandas dataframe,
+Now the lengths of lists are `500 500 500` and we can proceed with pandas dataframe,
 and writing a csv. The remaining columns of the table are extracted using similar approach.
 The full script and resulting file are on my [github](https://github.com/belovanna/py_dir).

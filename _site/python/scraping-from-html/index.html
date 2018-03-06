@@ -490,7 +490,7 @@ the lists, returns:</p>
 <p>It’s clear, we’re dealing with some missing values here. After a closer inspection, it turns out that
 the problem is caused by the anonymous entry #466:</p>
 
-<center>&lt;image: /assets/images/webscraping/empty.png&gt;</center>
+<p><img src="/assets/images/webscraping/empty.png" alt="My helpful screenshot" /></p>
 
 <p>Our parsing is ignoring empty entries in name, country and industry classes. This will mess up the
 dataset later on, unless we fix it.</p>
@@ -512,7 +512,7 @@ dataset later on, unless we fix it.</p>
 <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">'//div[@class="table-cell t-name"]/a'</span><span class="p">)</span>
 <span class="n">name_res</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">else</span> <span class="s">''</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
 </code></pre></div></div>
-<p>Now checking the length of lists gives <code class="highlighter-rouge">500 500 500</code> and we can proceed with pandas dataframe,
+<p>Now the lengths of lists are <code class="highlighter-rouge">500 500 500</code> and we can proceed with pandas dataframe,
 and writing a csv. The remaining columns of the table are extracted using similar approach.
 The full script and resulting file are on my <a href="https://github.com/belovanna/py_dir">github</a>.</p>
 
