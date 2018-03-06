@@ -18,3 +18,8 @@ header:
 [Kaggle profile](https://www.kaggle.com/anello)
 
 [Festival of Economics in Trento](https://2018.festivaleconomia.eu/english.html) (well worth a visit)
+
+
+## Resouces:
+
+[Data Science Books](https://www.springboard.com/blog/eleven-best-data-science-books/)

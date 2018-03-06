@@ -1,0 +1,877 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.10.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Web scraping - ABlog</title>
+<meta name="description" content="Web scraping: an example of data extraction with lxml library.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="ABlog">
+<meta property="og:title" content="Web scraping">
+<meta property="og:url" content="http://localhost:4000/python/scraping-from-html/">
+
+
+  <meta property="og:description" content="Web scraping: an example of data extraction with lxml library.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/banner.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2018-03-06T11:10:00+03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/python/scraping-from-html/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Anna Belova",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+  <meta name="msvalidate.01" content="0FC3FD70512616B052E755A56F8952D">
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="ABlog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+<style type="text/css">
+.content {
+	min-width: 400px;
+}
+#calendar {
+	width: 839px;
+}
+.subdomain-text {
+	fill: #fff;
+}
+#calendar a {
+	color: #999;
+}
+@media all and (max-width:1400px) {
+	#calendar {
+		width: 626px;
+	}
+}
+@media all and (max-width:730px) {
+	#calendar {
+		width:365px;
+	}
+}
+@media all and (max-width:420px) {
+	#calendar {
+		width:191px;
+	}
+}
+</style>
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://localhost:4000/">ABlog</a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/About/" >About</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/Curriculum/" >CV</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/links/" >External Links</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="http://localhost:4000/archive/" >Archive</a>
+            </li>
+          
+        </ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" "
+>
+  
+    <img src="http://localhost:4000/assets/images/banner.jpg" alt="Web scraping" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="http://localhost:4000/assets/images/bio-photo.jpg" alt="Anna Belova" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Anna Belova</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Economics Ph.D, Data Enthusiast
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Belarus / Italy</span>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://www.kaggle.com/anello" itemprop="url">
+            <i class="fas fa-fw fa-link" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:anabelova@gmail.com">
+            <meta itemprop="email" content="anabelova@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/hanna-bialova-7375aa42" itemprop="sameAs">
+            <i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/belovanna" itemprop="sameAs">
+            <i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Web scraping">
+    <meta itemprop="description" content="Web scraping: an example of data extraction with lxml library.">
+    <meta itemprop="datePublished" content="March 06, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Web scraping
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-cog"></i> On this page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#what-is-web-scraping">What is web scraping</a></li>
+  <li><a href="#example-bloomberg-billionaires-index">Example: Bloomberg Billionaires Index</a></li>
+  <li><a href="#saving-the-retrieved-data">Saving the retrieved data</a></li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h3 id="what-is-web-scraping">What is web scraping</h3>
+
+<p>Websites do not always provide their data in nice formats like JSON or csv.
+With economic data, it often happens that you need a dataset which only presented as an
+HTML table on a webpage and isn’t available for downloading. In such cases, the remedy can
+come from <em>web scraping</em>.</p>
+
+<blockquote>
+  <p>Web scraping is a technique of extracting website information; it helps to get your hands
+on the data from web pages.</p>
+</blockquote>
+
+<p>Python has libraries like <em>BeautifulSoup</em> and  <em>lxml</em> useful for web scraping.</p>
+
+<ul>
+  <li>
+    <p><em>lxml</em> is a library for parsing XML and HTML. It’s fast, straightforward and intuitive to use.
+It’s generally suggested to use <em>lxml</em> solution with well formed sources.</p>
+  </li>
+  <li>
+    <p><em>BeautifulSoup</em> is designed for extracting data out of poorly-formed HTML or XML. It has
+great detailed documentation. <em>BeautifulSoup4</em> now supports using lxml as the internal parser,
+so the choice between the two libraries is really the matter of preferences.</p>
+  </li>
+</ul>
+
+<h3 id="example-bloomberg-billionaires-index">Example: Bloomberg Billionaires Index</h3>
+
+<blockquote>
+  <p>The Bloomberg Billionaires Index is a daily ranking of the world’s richest people.
+Details about the calculations are provided in the net worth analysis on each billionaire’s profile page.
+The figures are updated at the close of every trading day in New York</p>
+</blockquote>
+
+<p>Let’s try to get some data from the <a href="https://www.bloomberg.com/billionaires/" title="bloomberg page">Bloomberg Billionaires Index</a>
+dataset by exploiting <em>lxml</em> and <em>Request</em> (an HTTP library).</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pip</span> <span class="n">install</span> <span class="n">lxml</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span>
+</code></pre></div></div>
+<p>Next we’ll use <code class="highlighter-rouge">request.get()</code> to get the webpage with our dataset, parse it with <code class="highlighter-rouge">html.fromstring()</code> and
+save the result in <code class="highlighter-rouge">tree</code>.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://www.bloomberg.com/billionaires/'</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Now we’ll leverage <code class="highlighter-rouge">xpath</code> for addressing parts of an XML document. A tutorial is <a href="https://www.w3schools.com/xml/xpath_nodes.asp">here</a>.
+There’re various ways to inspect webpage elements. I’m using safari, so I go with Develop -&gt; Show Web Inspector.
+A quick glance at the structure of our page, reveals that a row of our dataset looks like this:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-row"</span><span class="nt">&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell t-rank"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/div&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell t-name"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"./profiles/jeffrey-p-bezos/"</span><span class="nt">&gt;</span>Jeff Bezos<span class="nt">&lt;/a&gt;&lt;/div&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell active t-nw"</span><span class="nt">&gt;</span>$127B<span class="nt">&lt;/div&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell t-lcd pos"</span><span class="nt">&gt;</span>+$1.87B<span class="nt">&lt;/div&gt;</span>
+					<span class="c">&lt;!-- &lt;div class="table-cell t-lcp pos"&gt;+1.5%&lt;/div&gt; --&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell t-ycd pos"</span><span class="nt">&gt;</span>+$27.9B<span class="nt">&lt;/div&gt;</span>
+					<span class="c">&lt;!-- &lt;div class="table-cell t-ycp pos"&gt;+28.2%&lt;/div&gt; --&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell t-country"</span><span class="nt">&gt;</span>United States<span class="nt">&lt;/div&gt;</span>
+					<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"table-cell t-industry"</span><span class="nt">&gt;</span>Technology<span class="nt">&lt;/div&gt;</span>
+				<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+<p>The data is contained in the div elements. Knowing this structure, let’s create the queries
+for extracting Rank, Name, and Total net worth:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#This will extract ranks</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">'//div[@class="table-cell t-rank"]/text()'</span><span class="p">)</span>
+<span class="c">#This will extract billionair's names</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">'//div[@class="table-cell t-name"]/a/text()'</span><span class="p">)</span>
+<span class="c">#This will extract total net worth</span>
+<span class="n">activetnw</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">'//div[@class="table-cell active t-nw"]/text()'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Let’s see what this yields by printing the output:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#print ('rank: ', rank)</span>
+<span class="c">#print ('name: ', name)</span>
+<span class="c">#print ('activetnw: ', activetnw)</span>
+</code></pre></div></div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rank</span><span class="p">:</span>  <span class="p">[</span><span class="s">'1'</span><span class="p">,</span> <span class="s">'2'</span><span class="p">,</span> <span class="s">'3'</span><span class="p">,</span> <span class="s">'4'</span><span class="p">,</span> <span class="s">'5'</span><span class="p">,</span> <span class="s">'6'</span><span class="p">,</span> <span class="s">'7'</span><span class="p">,</span> <span class="s">'8'</span><span class="p">,</span> <span class="s">'9'</span><span class="p">,</span> <span class="s">'10'</span><span class="p">,</span> <span class="s">'11'</span><span class="p">,</span> <span class="s">'12'</span><span class="p">,</span> <span class="s">'13'</span><span class="p">,</span> <span class="s">'14'</span><span class="p">,</span> <span class="s">'15'</span><span class="p">,</span> <span class="s">'16'</span><span class="p">,</span> <span class="s">'17'</span><span class="p">,</span> <span class="s">'18'</span><span class="p">,</span> <span class="s">'19'</span><span class="p">,</span> <span class="s">'20'</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+<span class="n">name</span><span class="p">:</span>  <span class="p">[</span><span class="s">'Jeff Bezos'</span><span class="p">,</span> <span class="s">'Bill Gates'</span><span class="p">,</span> <span class="s">'Warren Buffett'</span><span class="p">,</span> <span class="s">'Mark Zuckerberg'</span><span class="p">,</span> <span class="s">'Amancio Ortega'</span><span class="p">,</span> <span class="s">'Carlos Slim'</span><span class="p">,</span> <span class="s">'Bernard Arnault'</span><span class="p">,</span> <span class="s">'Larry Ellison'</span><span class="p">,</span> <span class="s">'Larry Page'</span><span class="p">,</span> <span class="s">'Sergey Brin'</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+<span class="n">activetnw</span><span class="p">:</span>  <span class="p">[</span><span class="s">'$127B'</span><span class="p">,</span> <span class="s">'$91.4B'</span><span class="p">,</span> <span class="s">'$87.1B'</span><span class="p">,</span> <span class="s">'$73.9B'</span><span class="p">,</span> <span class="s">'$66.0B'</span><span class="p">,</span> <span class="s">'$65.7B'</span><span class="p">,</span> <span class="s">'$64.6B'</span><span class="p">,</span> <span class="s">'$56.9B'</span><span class="p">,</span> <span class="s">'$54.0B'</span><span class="p">,</span> <span class="s">'$52.7B'</span><span class="p">,</span> <span class="s">'$47.9B'</span><span class="p">,</span> <span class="s">'$47.9B'</span><span class="p">,</span> <span class="s">'$46.9B'</span><span class="p">,</span> <span class="s">'$43.4B'</span><span class="p">,</span> <span class="s">'$43.4B'</span><span class="p">,</span> <span class="s">'$42.9B'</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</code></pre></div></div>
+<p>Yasss! We get three lists containing our data. The web scraping was successful. Now, we’d
+like to retrieve the rest of the information in the table, and save our data to a csv file.</p>
+
+<h3 id="saving-the-retrieved-data">Saving the retrieved data</h3>
+
+<p>We shall start with importing pandas and writing our lists into a dataframe. The following code</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s">"rank"</span><span class="p">:</span> <span class="n">rank</span><span class="p">,</span> <span class="s">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s">"activetnw"</span><span class="p">:</span> <span class="n">activetnw</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"./myfile.csv"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">','</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+<p>however, produces an error: <code class="highlighter-rouge">ValueError: arrays must all be same length</code>. Checking the length of
+the lists, returns:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rank</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">activetnw</span><span class="p">))</span> <span class="c">#check the length of the str</span>
+
+<span class="mi">500</span> <span class="mi">499</span> <span class="mi">500</span>
+</code></pre></div></div>
+<p>It’s clear, we’re dealing with some missing values here. After a closer inspection, it turns out that
+the problem is caused by the anonymous entry #466:</p>
+
+<center>&lt;image: /assets/images/webscraping/empty.png&gt;</center>
+
+<p>Our parsing is ignoring empty entries in name, country and industry classes. This will mess up the
+dataset later on, unless we fix it.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-row"</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-rank"</span><span class="o">&gt;</span><span class="mi">466</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-name"</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">"./profiles//"</span><span class="o">&gt;&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell active t-nw"</span><span class="o">&gt;</span><span class="err">$</span><span class="mf">4.30</span><span class="n">B</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-lcd pos"</span><span class="o">&gt;+</span><span class="err">$</span><span class="mi">163</span><span class="n">M</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-lcp pos"</span><span class="o">&gt;+</span><span class="mf">3.9</span><span class="o">%&lt;/</span><span class="n">div</span><span class="o">&gt;</span> <span class="o">--&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-ycd pos"</span><span class="o">&gt;+</span><span class="err">$</span><span class="mf">1.48</span><span class="n">B</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="err">!</span><span class="o">--</span> <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-ycp pos"</span><span class="o">&gt;+</span><span class="mf">52.8</span><span class="o">%&lt;/</span><span class="n">div</span><span class="o">&gt;</span> <span class="o">--&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-country"</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s">"table-cell t-industry"</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+				<span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</code></pre></div></div>
+<p>However, the fix is really easy. We can modify our parsing code as follows:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">'//div[@class="table-cell t-name"]/a'</span><span class="p">)</span>
+<span class="n">name_res</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">else</span> <span class="s">''</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">name</span><span class="p">]</span>
+</code></pre></div></div>
+<p>Now checking the length of lists gives <code class="highlighter-rouge">500 500 500</code> and we can proceed with pandas dataframe,
+and writing a csv. The remaining columns of the table are extracted using similar approach.
+The full script and resulting file are on my <a href="https://github.com/belovanna/py_dir">github</a>.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#data-analysis" class="page__taxonomy-item" rel="tag">data analysis</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#parsing" class="page__taxonomy-item" rel="tag">parsing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#python" class="page__taxonomy-item" rel="tag">python</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#web-scraping" class="page__taxonomy-item" rel="tag">web scraping</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/categories/#python" class="page__taxonomy-item" rel="tag">python</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-03-06T11:10:00+03:00">March 06, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Web+scraping%20http%3A%2F%2Flocalhost%3A4000%2Fpython%2Fscraping-from-html%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpython%2Fscraping-from-html%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2Fpython%2Fscraping-from-html%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpython%2Fscraping-from-html%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/r/tutorial/working-with-databases-in-R/" class="pagination--pager" title="Working with databases in R: dplyr
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://localhost:4000/assets/images/default-header.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/r/tutorial/working-with-databases-in-R/" rel="permalink">Working with databases in R: dplyr
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In this post I give an overview of some handy tools for working with databases in R: dplyr/dbplyr packages.
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://localhost:4000/assets/images/jekyll-logo.png"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/website/update/linking-to-pdf-in-jekyll/" rel="permalink">Linking to a Pdf in Jekyll
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Linking to a Pdf in Jekyll: downloadable and embedded files.
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "http://localhost:4000/assets/images/default-header.jpg"
+          
+          alt="">
+      </div>
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/website/update/hello-world/" rel="permalink">Hello, World!
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Some thoughts about open access &amp; data analysis.
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+<script type="text/javascript">
+
+var data = {
+"1520323800": 1,
+"1519821752": 2,
+"1519752000": 1
+};
+
+var responsiveCal = function( options ) {
+	var now = new Date();
+    if( $(window).width() < 420 ) {
+        options.start = now.setMonth(now.getMonth());
+        options.range = 1;
+        options.cellSize = 25;
+    } else if ( $(window).width() < 730 ) {
+        options.start = now.setMonth(now.getMonth() - 1);
+        options.range = 2;
+        options.cellSize = 20;
+    } else if( $(window).width() < 1400 ) {
+        options.start = now.setMonth(now.getMonth() - 2);
+        options.range = 3;
+        options.cellSize = 23;
+    } else {
+        options.start = now.setMonth(now.getMonth() - 3);
+        options.range = 4;
+        options.cellSize = 23;
+    }
+
+    if( typeof cal === "object" ) {
+        $('#cal-heatmap').html('');
+        cal = cal.destroy();
+    }
+    cal = new CalHeatMap();
+    cal.init( options );
+
+}
+caloptions = {
+    itemSelector: "#cal-heatmap",
+	domain: "month",
+	subDomain: "x_day",
+	data: data,
+	dataType: "json",
+	legendColors: {
+		min: "#ecf5e2",
+		max: "#232181",
+		empty: "#f1f1f1",
+		base: "#f1f1f1"
+		// Will use the CSS for the missing keys
+	},
+	cellPadding: 5,
+	domainGutter: 20,
+	displayLegend: true,
+	range: 4,
+	considerMissingDataAsZero: false,
+	domainDynamicDimension: true,
+	previousSelector: "#cal-heatmap-PreviousDomain-selector",
+	nextSelector: "#cal-heatmap-NextDomain-selector",
+	domainLabelFormat: function(date) {
+		moment.locale("en");
+		return moment(date).format("MMMM").toUpperCase();
+	},
+	subDomainTextFormat: "%d",
+	legend: [1,2,3,4],
+	label: {
+		position: "top"
+	}
+};
+
+// run first time, put in load if your scripts are in footer
+responsiveCal( caloptions );
+
+$(window).resize(function() {
+    if(this.resizeTO) clearTimeout(this.resizeTO);
+    this.resizeTO = setTimeout(function() {
+        $(this).trigger('resizeEnd');
+    }, 500);
+});
+
+//resize on resizeEnd function
+$(window).bind('resizeEnd', function() {
+	 responsiveCal( cal.options );
+});
+cal.setLegend()
+</script>
+
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="https://github.com/belovanna"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Anna Belova. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://localhost:4000/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+
+
+
+<script src="http://localhost:4000/assets/js/lunr/lunr.min.js"></script>
+<script src="http://localhost:4000/assets/js/lunr/lunr-store.js"></script>
+<script src="http://localhost:4000/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+  
+
+
+
+  </body>
+</html>

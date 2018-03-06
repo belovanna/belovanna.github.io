@@ -13,4 +13,9 @@ var store = [{
         "excerpt":"On this page Introduction Establishing a connection Intorduction to dplyr package Single table verbs Grouped operations Chaining Two-table verbs Mutating joins Types of mutating joins Filtering joins Set operations R to SQL translation Laziness IntroductionIn this post I offer an overview of some handy tools for working with databasesin R:...","categories": ["R","tutorial"],
         "tags": ["R","dplyr","tutorial"],
         "url": "http://localhost:4000/r/tutorial/working-with-databases-in-R/",
-        "teaser":"http://localhost:4000/assets/images/default-header.jpg"}]
+        "teaser":"http://localhost:4000/assets/images/default-header.jpg"},{
+        "title": "Web scraping",
+        "excerpt":"What is web scrapingWebsites do not always provide their data in nice formats like JSON or csv.With economic data, it often happens that you need a dataset which only presented as anHTML table on a webpage and isn’t available for downloading. In such cases, the remedy cancome from web scraping....","categories": ["python"],
+        "tags": ["web scraping","parsing","python","data analysis"],
+        "url": "http://localhost:4000/python/scraping-from-html/",
+        "teaser":"http://localhost:4000/assets/images/scraping.jpg"}]

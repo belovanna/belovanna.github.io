@@ -321,7 +321,7 @@ There's a function **translate_sql()** in dplyr package that allows translation 
 
 # Laziness
 
-*Dplyr* is tryign to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it. *Dplyr* delays an ongoing task until the last possible moment (it collects everything together and then sends it in one step).
+*Dplyr* is trying to be as lazy as possible. And this is a good thing: it never pools the data unless we specifically ask for it. *Dplyr* delays an ongoing task until the last possible moment (it collects everything together and then sends it in one step).
 
 > Example:
 
