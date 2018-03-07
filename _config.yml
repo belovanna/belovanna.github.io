@@ -62,7 +62,7 @@ algolia:
 
 
 # SEO Related
-google_site_verification : "2D5zbZ2Vatb8CeFj1cUCRdJZ3SQatSUlQesml02jEPo"
+google_site_verification :
 bing_site_verification   : "0FC3FD70512616B052E755A56F8952D"
 yandex_site_verification :
 naver_site_verification  :
@@ -86,7 +86,7 @@ social:
 analytics:
   provider               : custom # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          :
+    tracking_id          : "UA-114973765-1"
 
 
 # Site Author
