@@ -112,8 +112,6 @@ GEM
     jekyll-github-metadata (2.9.3)
       jekyll (~> 3.1)
       octokit (~> 4.0, != 4.4.0)
-    jekyll-maps (2.1.2)
-      jekyll (~> 3.0)
     jekyll-mentions (1.2.0)
       activesupport (~> 4.0)
       html-pipeline (~> 2.3)
@@ -237,7 +235,8 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   jekyll-feed (~> 0.6)
-  jekyll-maps
+  jekyll-seo-tag
+  jekyll-sitemap
   minima (~> 2.0)
   tzinfo-data
 
