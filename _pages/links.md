@@ -23,3 +23,5 @@ header:
 ## Resouces:
 
 [Data Science Books](https://www.springboard.com/blog/eleven-best-data-science-books/)
+
+[Statistical theory visualized](http://students.brown.edu/seeing-theory/basic-probability/index.html)
