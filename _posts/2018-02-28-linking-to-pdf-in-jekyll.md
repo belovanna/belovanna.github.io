@@ -7,8 +7,8 @@ toc: TRUE
 toc_label: "On this page"
 toc_icon: "cog"
 tags:
-  - website
-  - Jekyll
+   - website
+   - Jekyll
 categories: website update
 header:
   image: /assets/images/banner.jpg

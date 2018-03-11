@@ -7,10 +7,8 @@ toc: TRUE
 toc_label: "On this page"
 toc_icon: "cog"
 tags:
-  - web scraping
-  - parsing
-  - python
   - data analysis
+  - tutorial
 categories: python
 header:
   image: /assets/images/banner.jpg

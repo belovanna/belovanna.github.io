@@ -4,8 +4,7 @@ title:  "Hello, World!"
 excerpt: "Some thoughts about open access & data analysis."
 date:   2018-02-27 20:20:00 +0300
 tags:
-  about
-  website
+  - open source
 categories: website update
 header:
   image: /assets/images/banner.jpg
