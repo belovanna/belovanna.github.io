@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-03-23T23:05:04+03:00</updated><id>http://localhost:4000/</id><title type="html">ABlog</title><subtitle>personal website about data analysis</subtitle><author><name>Anna Belova</name><email>anabelova@gmail.com</email><uri>https://www.kaggle.com/anello</uri></author><entry><title type="html">Steam video game analysis</title><link href="http://localhost:4000/r/steam-video-game-analysis/" rel="alternate" type="text/html" title="Steam video game analysis" /><published>2018-03-19T21:10:00+03:00</published><updated>2018-03-19T21:10:00+03:00</updated><id>http://localhost:4000/r/steam-video-game-analysis</id><content type="html" xml:base="http://localhost:4000/r/steam-video-game-analysis/">&lt;head&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-03-23T23:10:43+03:00</updated><id>http://localhost:4000/</id><title type="html">ABlog</title><subtitle>personal website about data analysis</subtitle><author><name>Anna Belova</name><email>anabelova@gmail.com</email><uri>https://www.kaggle.com/anello</uri></author><entry><title type="html">Steam video game analysis</title><link href="http://localhost:4000/r/steam-video-game-analysis/" rel="alternate" type="text/html" title="Steam video game analysis" /><published>2018-03-19T21:10:00+03:00</published><updated>2018-03-19T21:10:00+03:00</updated><id>http://localhost:4000/r/steam-video-game-analysis</id><content type="html" xml:base="http://localhost:4000/r/steam-video-game-analysis/">&lt;head&gt;
 
 &lt;meta charset=&quot;utf-8&quot; /&gt;
 &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
@@ -1224,11 +1224,16 @@ iron(pd12, pd22, pd32)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&quot;section&quot; class=&quot;section level1&quot;&gt;
 &lt;h1&gt;&lt;/h1&gt;
-&lt;p&gt;Summary of the findings: Part I. Games analysis: 1. There’s a small number of very popular games. A vast number of games in the dataset (30%) have 0 playing time. However, it’s not possible to distinguish between genuinely unpopular games, new games, and various game add-ons/updates. 2.The distribution of players by game looks power law (possibly Pareto). The data on total number of hours played by game is extremely over-dispersed. 3. Among the top 10 games, the most popular genre is shooter, mode - multi+single player. 4. The left tail data on playing time is over inflated with 0s due to the fact that There are add-ons present in the dataset, and one cannot distinguish between the add-ons and “unpopular” games. Should be careful when modeling such data, it’s better to complete the dataset with categorical variable on type of games.&lt;/p&gt;
-&lt;p&gt;Part II. Players’ behavior: 1. Very few users (8%) are engaged with games for high number of hours. Very few players (approx. 500 out of 12000 are “heavy gamers”). 1042 players or 8.4% of unique id’s have 0 playing times. Median users spend 5.7 hrs per game. Not clear if this can be attributed to user’s behavior or games features (duration of games, duration of the easiest levels).&lt;/p&gt;
-&lt;ol start=&quot;2&quot; style=&quot;list-style-type: decimal&quot;&gt;
-&lt;li&gt;Hours played look like log-normally distributed data. Negative binomial distribution - can be a start for modeling the number of games per players (taking into account some over dispersion in the data).&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;Summary of the findings:&lt;/p&gt;
+&lt;p&gt;Part I. Games analysis: &lt;/p&gt;
+&lt;p&gt;1. There’s a small number of very popular games. A vast number of games in the dataset (30%) have 0 playing time. However, it’s not possible to distinguish between genuinely unpopular games, new games, and various game add-ons/updates.&lt;/p&gt;
+&lt;p&gt;2. The distribution of players by game looks power law (possibly Pareto). The data on total number of hours played by game is extremely over-dispersed.&lt;/p&gt;
+&lt;p&gt;3. Among the top 10 games, the most popular genre is shooter, mode - multi+single player. 4. The left tail data on playing time is over inflated with 0s due to the fact that There are add-ons present in the dataset, and one cannot distinguish between the add-ons and “unpopular” games. Should be careful when modeling such data, it’s better to complete the dataset with categorical variable on type of games.&lt;/p&gt;
+
+&lt;p&gt;Part II. Players’ behavior:&lt;/p&gt;
+&lt;p&gt; 1. Very few users (8%) are engaged with games for high number of hours. Very few players (approx. 500 out of 12000 are “heavy gamers”). 1042 players or 8.4% of unique id’s have 0 playing times. Median users spend 5.7 hrs per game. Not clear if this can be attributed to user’s behavior or games features (duration of games, duration of the easiest levels).&lt;/p&gt;
+&lt;p&gt; 2. Hours played look like log-normally distributed data. Negative binomial distribution - can be a start for modeling the number of games per players (taking into account some over dispersion in the data).&lt;/p&gt;
+
 &lt;/div&gt;
 
 

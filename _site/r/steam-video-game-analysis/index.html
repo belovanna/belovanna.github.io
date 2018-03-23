@@ -1619,11 +1619,16 @@ iron(pd12, pd22, pd32)</code></pre>
 </div>
 <div id="section" class="section level1">
 <h1></h1>
-<p>Summary of the findings: Part I. Games analysis: 1. There’s a small number of very popular games. A vast number of games in the dataset (30%) have 0 playing time. However, it’s not possible to distinguish between genuinely unpopular games, new games, and various game add-ons/updates. 2.The distribution of players by game looks power law (possibly Pareto). The data on total number of hours played by game is extremely over-dispersed. 3. Among the top 10 games, the most popular genre is shooter, mode - multi+single player. 4. The left tail data on playing time is over inflated with 0s due to the fact that There are add-ons present in the dataset, and one cannot distinguish between the add-ons and “unpopular” games. Should be careful when modeling such data, it’s better to complete the dataset with categorical variable on type of games.</p>
-<p>Part II. Players’ behavior: 1. Very few users (8%) are engaged with games for high number of hours. Very few players (approx. 500 out of 12000 are “heavy gamers”). 1042 players or 8.4% of unique id’s have 0 playing times. Median users spend 5.7 hrs per game. Not clear if this can be attributed to user’s behavior or games features (duration of games, duration of the easiest levels).</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Hours played look like log-normally distributed data. Negative binomial distribution - can be a start for modeling the number of games per players (taking into account some over dispersion in the data).</li>
-</ol>
+<p>Summary of the findings:</p>
+<p>Part I. Games analysis: </p>
+<p>1. There’s a small number of very popular games. A vast number of games in the dataset (30%) have 0 playing time. However, it’s not possible to distinguish between genuinely unpopular games, new games, and various game add-ons/updates.</p>
+<p>2. The distribution of players by game looks power law (possibly Pareto). The data on total number of hours played by game is extremely over-dispersed.</p>
+<p>3. Among the top 10 games, the most popular genre is shooter, mode - multi+single player. 4. The left tail data on playing time is over inflated with 0s due to the fact that There are add-ons present in the dataset, and one cannot distinguish between the add-ons and “unpopular” games. Should be careful when modeling such data, it’s better to complete the dataset with categorical variable on type of games.</p>
+
+<p>Part II. Players’ behavior:</p>
+<p> 1. Very few users (8%) are engaged with games for high number of hours. Very few players (approx. 500 out of 12000 are “heavy gamers”). 1042 players or 8.4% of unique id’s have 0 playing times. Median users spend 5.7 hrs per game. Not clear if this can be attributed to user’s behavior or games features (duration of games, duration of the easiest levels).</p>
+<p> 2. Hours played look like log-normally distributed data. Negative binomial distribution - can be a start for modeling the number of games per players (taking into account some over dispersion in the data).</p>
+
 </div>
 
 
