@@ -23,4 +23,4 @@ var store = [{
         "excerpt":"Steam Video Games AnalysisCode Show All CodeHide All CodeBelow are some quick results of an exploratory analysis of Steam Data Set available on Kaggle. The dataset contains a single table with four columns: user_id, game_title, behaviour_name, values. Data description:“Steam is the world’s most popular PC Gaming hub. With a massive...","categories": ["R"],
         "tags": ["data analysis","tutorial"],
         "url": "http://localhost:4000/r/steam-video-game-analysis/",
-        "teaser":"http://localhost:4000/assets/images/default-header.jpg"}]
+        "teaser":"http://localhost:4000/assets/images/steamlogo.png"}]
