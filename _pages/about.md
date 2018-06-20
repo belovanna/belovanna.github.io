@@ -7,6 +7,13 @@ author_profile: true
 header:
   image: assets/images/banner.jpg
 ---
+<iframe
+width="350"
+height="430"
+src="https://console.api.ai/api-client/demo/embedded/
+2d55ca53-1a4c-4241-8852-a7ed4f48d266">
+</iframe>
+
 
 Hi! My background (and PhD) is in Economics and in particular Macroeconomic Modeling.
 But working as an Analyst for a Business Intelligence company, I became very excited about firm-level data as well. I have quite a bit of experience in data analysis and forecasting, revenue management, e-commerce systems, and developing analytics for BI software for Italian ski resorts. I like working in R (big fan of Tidyverse) and learning new techy things. My most recent discovery is Jekyll, which is responsible for this website being up and running.
