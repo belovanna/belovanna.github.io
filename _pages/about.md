@@ -10,8 +10,7 @@ header:
 <iframe
 width="350"
 height="430"
-src="https://console.api.ai/api-client/demo/embedded/
-2d55ca53-1a4c-4241-8852-a7ed4f48d266">
+src="https://bot.dialogflow.com/69dff710-e2b5-481c-8c93-b782f1d77284">
 </iframe>
 
 
