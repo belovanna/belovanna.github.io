@@ -8,7 +8,7 @@ header:
   image: assets/images/banner.jpg
 ---
 <iframe
-    width="350"
+    width="400"
     height="430"
     src="https://console.dialogflow.com/api-client/demo/embedded/69dff710-e2b5-481c-8c93-b782f1d77284">
 </iframe>
