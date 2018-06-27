@@ -18,6 +18,15 @@ You can find out more using my personal assistant, Albert-the-bot.</p>
     src="https://console.dialogflow.com/api-client/demo/embedded/69dff710-e2b5-481c-8c93-b782f1d77284">
 </iframe>
 
+<script src="https://albert-lex-web-ui-codebuilddeploy-1m-webappbucket-gq76yxs819a9.s3.amazonaws.com/lex-web-ui-loader.min.js"></script>
+<script>
+  var loaderOpts = {
+    baseUrl: 'https://albert-lex-web-ui-codebuilddeploy-1m-webappbucket-gq76yxs819a9.s3.amazonaws.com/'
+  };
+  var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
+  loader.load()
+    .catch(function (error) { console.error(error); });
+</script>
 
 ### Education:
 - **University of Trento** (2011 - 2016)   
