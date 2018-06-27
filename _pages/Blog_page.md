@@ -11,15 +11,6 @@ header:
 Most of my posts are technical notes written for my own reference. It'll be great,
 if anyone would find them useful.
 
-<script src="https://lex-web-ui-codebuilddeploy-15hteepuq-webappbucket-1qvirzqv23ygb.s3.amazonaws.com/lex-web-ui-loader.min.js"></script>
-<script>
-  var loaderOpts = {
-    baseUrl: 'https://lex-web-ui-codebuilddeploy-15hteepuq-webappbucket-1qvirzqv23ygb.s3.amazonaws.com/'
-  };
-  var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
-  loader.load()
-    .catch(function (error) { console.error(error); });
-</script>
 
 <ul>
   {% for post in site.posts %}
