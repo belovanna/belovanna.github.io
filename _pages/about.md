@@ -20,7 +20,33 @@ But working as an Analyst for a Business Intelligence company, I became very exc
 
 <!-- Start of Async Drift Code -->
 <script>
-"use strict";
+  
+drift.config({
+   locale: 'en-US',
+    messages: {
+     welcomeMessage: 'Hey there!',
+      awayMessage: "Hey, we're not here right now, but leave a message.",
+      emailCaptureMessage: "Leave your email so we can get back to you.",
+      thankYouMessage: "Thanks we'll follow up soon."
+    },
+    enableWelcomeMessage: false,
+    enableCampaigns: false,
+    enableChatTargeting: false,
+    backgroundColor: '#000000',
+    foregroundColor: '#ffffff',
+    activeColor: '#00ff00',
+    textColor: '#ffffff',
+    autoAssignee: {
+      name: 'Anna Belova',
+      title: 'Data Scientist',
+      email: 'anabelova@gmail.com',
+      avatarUrl: 'https://belovanna.github.io/assets/images/bio-photo.jpg',
+    },
+    inboxId: 1,
+    cookieDomain: '.example.com',
+    welcomeMessageDelay: 5000,
+    disableNewConversations: true,
+  })
 
 !function() {
   var t = window.driftt = window.drift = window.driftt || [];
