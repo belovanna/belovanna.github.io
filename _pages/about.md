@@ -17,15 +17,6 @@ But working as an Analyst for a Business Intelligence company, I became very exc
     src="https://console.dialogflow.com/api-client/demo/embedded/69dff710-e2b5-481c-8c93-b782f1d77284">
 </iframe>
 
-<script src="https://lex-web-ui-codebuilddeploy-1cznhsenf-webappbucket-1yt1wi7pms2h.s3.amazonaws.com/lex-web-ui-loader.min.js"></script>
-<script>
-  var loaderOpts = {
-    baseUrl: 'https://lex-web-ui-codebuilddeploy-1cznhsenf-webappbucket-1yt1wi7pms2h.s3.amazonaws.com/'
-  };
-  var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
-  loader.load()
-    .catch(function (error) { console.error(error); });
-</script>
 
 <!-- Start of Async Drift Code -->
 <script>
