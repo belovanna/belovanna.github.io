@@ -32,9 +32,9 @@ drift.config({
     enableWelcomeMessage: false,
     enableCampaigns: false,
     enableChatTargeting: false,
-    backgroundColor: '#000000',
+    backgroundColor: ' #f0f0f5',
     foregroundColor: '#ffffff',
-    activeColor: '#00ff00',
+    activeColor: '#ff0066',
     textColor: '#ffffff',
     autoAssignee: {
       name: 'Anna Belova',
