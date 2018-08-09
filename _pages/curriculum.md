@@ -8,8 +8,6 @@ header:
   image: assets/images/banner.jpg
 ---
 
-<embed src="https://belovanna.github.io/assets/download/cv_HB.pdf" type="application/pdf" />
-
 <!-- Start of Async Drift Code -->
 <script>
 "use strict";
@@ -38,3 +36,6 @@ drift.SNIPPET_VERSION = '0.3.1';
 drift.load('ecwai9b2bsky');
 </script>
 <!-- End of Async Drift Code -->
+
+<embed src="https://belovanna.github.io/assets/download/cv_HB.pdf" type="application/pdf" />
+
