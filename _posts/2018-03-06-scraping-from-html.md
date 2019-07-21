@@ -93,7 +93,7 @@ rank:  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14
 name:  ['Jeff Bezos', 'Bill Gates', 'Warren Buffett', 'Mark Zuckerberg', 'Amancio Ortega', 'Carlos Slim', 'Bernard Arnault', 'Larry Ellison', 'Larry Page', 'Sergey Brin',...]
 activetnw:  ['$127B', '$91.4B', '$87.1B', '$73.9B', '$66.0B', '$65.7B', '$64.6B', '$56.9B', '$54.0B', '$52.7B', '$47.9B', '$47.9B', '$46.9B', '$43.4B', '$43.4B', '$42.9B', ...]
 ```
-Yasss! We get three lists containing our data. The web scraping was successful. Now, we'd
+Yes! We get three lists containing our data. The web scraping was successful. Now, we'd
 like to retrieve the rest of the information in the table, and save our data to a csv file.
 
 ### Saving the retrieved data
